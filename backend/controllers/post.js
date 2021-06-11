@@ -8,12 +8,12 @@ exports.getAllPosts = (req, res, next) => {
 
     let sqlGetPosts;
 
-    sqlGetPosts = `SELECT Post.postID, post.userID, legend, gifUrl, DATE_FORMAT(post.dateCreation, 'le %e %M %Y à %kh%i') AS dateCreation, firstName, lastName, pseudo, avatarUrl,
+    sqlGetPosts = `SELECT post.postID, post.userID, legend, gifUrl, DATE_FORMAT(post.dateCreation, 'le %e %M %Y à %kh%i') AS dateCreation, firstName, lastName, pseudo, avatarUrl,
     COUNT(CASE WHEN reaction.reaction = 1 then 1 else null end) AS countUp,
     COUNT(CASE WHEN reaction.reaction = -1 then 1 else null end) AS countDown,
     SUM(CASE WHEN reaction.userID = ? AND reaction.reaction = 1 then 1 WHEN reaction.userID = ? AND reaction.reaction = -1 then -1 else 0 end) AS yourReaction,
-    COUNT(CASE WHEN Post.userID = ? then 1 else null end) AS yourPost
-    FROM Post LEFT OUTER JOIN User ON Post.userID = User.userID LEFT OUTER JOIN Reaction ON Post.postID = Reaction.postID WHERE post.postIDComment IS NULL GROUP BY Post.postID ORDER BY post.postID DESC`;
+    COUNT(CASE WHEN post.userID = ? then 1 else null end) AS yourPost
+    FROM post LEFT OUTER JOIN User ON post.userID = user.userID LEFT OUTER JOIN reaction ON post.postID = reaction.postID WHERE post.postIDComment IS NULL GROUP BY post.postID ORDER BY post.postID DESC`;
     mysql.query(sqlGetPosts, [userID, userID, userID], function (err, result) {
         if (err) {
             return res.status(500).json(err.message);
@@ -32,12 +32,12 @@ exports.getOnePost = (req, res, next) => {
 
     let sqlGetPost;
 
-    sqlGetPost = `SELECT Post.postID, post.userID, legend, body, gifUrl, DATE_FORMAT(post.dateCreation, 'le %e %M %Y à %kh%i') AS dateCreation, firstName, lastName, pseudo, avatarUrl,
+    sqlGetPost = `SELECT post.postID, post.userID, legend, body, gifUrl, DATE_FORMAT(post.dateCreation, 'le %e %M %Y à %kh%i') AS dateCreation, firstName, lastName, pseudo, avatarUrl,
     COUNT(CASE WHEN reaction.reaction = 1 then 1 else null end) AS countUp,
     COUNT(CASE WHEN reaction.reaction = -1 then 1 else null end) AS countDown,
     SUM(CASE WHEN reaction.userID = ? AND reaction.reaction = 1 then 1 WHEN reaction.userID = ? AND reaction.reaction = -1 then -1 else 0 end) AS yourReaction,
-    COUNT(CASE WHEN Post.userID = ? then 1 else null end) AS yourPost
-    FROM Post LEFT OUTER JOIN User ON Post.userID = User.userID LEFT OUTER JOIN Reaction ON Post.postID = Reaction.postID WHERE Post.postID = ? OR Post.postIDComment = ? GROUP BY Post.postID ORDER BY post.postID DESC`;
+    COUNT(CASE WHEN post.userID = ? then 1 else null end) AS yourPost
+    FROM post LEFT OUTER JOIN User ON post.userID = User.userID LEFT OUTER JOIN reaction ON post.postID = reaction.postID WHERE post.postID = ? OR post.postIDComment = ? GROUP BY post.postID ORDER BY post.postID DESC`;
     mysql.query(sqlGetPost, [userID, userID, userID, postID, postID], function (err, result) {
         if (err) {
             return res.status(500).json(err.message);
@@ -66,7 +66,7 @@ exports.createPost = (req, res, next) => {
         if (err) {
             return res.status(500).json(err.message);
         }
-        res.status(201).json({ message: "Post crée !" });
+        res.status(201).json({ message: "Post créé !" });
     });
 };
 
@@ -78,12 +78,12 @@ exports.deletePost = (req, res, next) => {
     let sqlDeletePost;
     let sqlSelectPost;
 
-    sqlSelectPost = "SELECT gifUrl FROM Post WHERE postID = ?";
+    sqlSelectPost = "SELECT gifUrl FROM post WHERE postID = ?";
     mysql.query(sqlSelectPost, [postID], function (err, result) {
         if (result > 0) {
             const filename = result[0].gifUrl.split("/images/")[1];
             fs.unlink(`images/${filename}`, () => { // On supprime le fichier image en amont //
-                sqlDeletePost = "DELETE FROM Post WHERE userID = ? AND postID = ?";
+                sqlDeletePost = "DELETE FROM post WHERE userID = ? AND postID = ?";
                 mysql.query(sqlDeletePost, [userID, postID], function (err, result) {
                     if (err) {
                         return res.status(500).json(err.message);
@@ -92,7 +92,7 @@ exports.deletePost = (req, res, next) => {
                 });
             });
         } else {
-            sqlDeletePost = "DELETE FROM Post WHERE userID = ? AND postID = ?";
+            sqlDeletePost = "DELETE FROM post WHERE userID = ? AND postID = ?";
             mysql.query(sqlDeletePost, [userID, postID], function (err, result) {
                 if (err) {
                     return res.status(500).json(err.message);
@@ -136,12 +136,12 @@ exports.reactPost = (req, res, next) => {
     let sqlReaction;
     let values;
 
-    sqlReaction = `INSERT INTO Reaction VALUES (?, ?, ?, NOW()) ON DUPLICATE KEY UPDATE reaction = ?`;
+    sqlReaction = `INSERT INTO reaction VALUES (?, ?, ?, NOW()) ON DUPLICATE KEY UPDATE reaction = ?`;
     values = [userID, postID, reaction, reaction];
     mysql.query(sqlReaction, values, function (err, result) {
         if (err) {
             return res.status(500).json(err.message);
         }
-        res.status(201).json({ message: "Reaction créee !" });
+        res.status(201).json({ message: "Reaction crée !" });
     });
 };
