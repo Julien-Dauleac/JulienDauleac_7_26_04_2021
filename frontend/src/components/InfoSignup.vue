@@ -11,6 +11,7 @@
                 placeholder="Votre prénom"
                 id="firstName"
                 required
+                pattern="[a-zA-Z._-]{2,15}"
                 maxlength="30"
                 aria-label="Entrez votre prénom"
                 v-model="firstName"
@@ -26,6 +27,7 @@
                 placeholder="Votre nom"
                 id="lastName"
                 required
+                pattern="[a-zA-Z._-]{2,15}"
                 maxlength="30"
                 aria-label="Entrez votre nom"
                 v-model="lastName"
