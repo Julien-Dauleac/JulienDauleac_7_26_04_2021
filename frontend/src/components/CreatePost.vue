@@ -22,7 +22,6 @@
                 name="image"
                 type="file"
                 class="custom-file-input"
-
                 required
                 v-on:change="sendFile($event)"
         />

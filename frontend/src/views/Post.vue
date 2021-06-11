@@ -44,7 +44,7 @@
                 <template v-slot:postGif v-else-if="posts[indexLastPost].gifUrl.includes('.mp4')">
                     <video width="100%" controls>
                         <source :src="posts[indexLastPost].gifUrl" type="video/mp4">
-                        Your browser does not support HTML video.
+                        Votre navigateur ne prend pas en charge la vidéo HTML.
                     </video>
                 </template>
 
