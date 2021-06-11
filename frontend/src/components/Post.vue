@@ -45,12 +45,12 @@
     <footer class="row">
       <div class="col-4 col-md-2">
         <i
-          class="fas fa-angle-up fa-lg"
-          aria-hidden="true"
-          title="Aimer le post"
-          role="button"
-          :class="reactionUp"
-          v-on:click="sendReactionUp"
+                class="fas fa-angle-up fa-lg"
+                aria-hidden="true"
+                title="Aimer le post"
+                role="button"
+                :class="reactionUp"
+                v-on:click="sendReactionUp"
         ></i>
         <span class="sr-only">Aimer le post</span>
         <span class="ml-1">
@@ -59,12 +59,12 @@
       </div>
       <div class="col-4 col-md-2">
         <i
-          class="fas fa-angle-down fa-lg"
-          aria-hidden="true"
-          title="Ne pas aimer le post"
-          role="button"
-          :class="reactionDown"
-          v-on:click="sendReactionDown"
+                class="fas fa-angle-down fa-lg"
+                aria-hidden="true"
+                title="Ne pas aimer le post"
+                role="button"
+                :class="reactionDown"
+                v-on:click="sendReactionDown"
         ></i>
         <span class="sr-only">Ne pas aimer le post</span>
         <span class="ml-1">
@@ -75,11 +75,11 @@
         <p>
           <a class="d-md-none">
             <i
-              class="fas fa-comments"
-              aria-hidden="true"
-              title="Commmenter le post"
-              role="button"
-              v-on:click="displayCommentInput"
+                    class="fas fa-comments"
+                    aria-hidden="true"
+                    title="Commmenter le post"
+                    role="button"
+                    v-on:click="displayCommentInput"
             ></i>
             <span class="sr-only">Commenter le post</span>
           </a>
@@ -99,106 +99,106 @@
 </template>
 
 <script>
-export default {
-  name: "Post",
-  props: ["idPost", "idUser", "reaction"],
-  data: () => {
-    return {
-      reactionUp: "", // Nombre de réactions positives
-      reactionDown: "", // Nombre de réactions négatives
-      cursor: "pointer" // Défini le pointeur que doit avoir le corps et gif du post
-    };
-  },
-  methods: {
-    displayCommentInput() {
-      // Envois de la requête pour dévoiler l'input pour créer un commentaire
-      this.$emit("d-comment-input");
+  export default {
+    name: "Post",
+    props: ["idPost", "idUser", "reaction"],
+    data: () => {
+      return {
+        reactionUp: "", // Nombre de réactions positives
+        reactionDown: "", // Nombre de réactions négatives
+        cursor: "pointer" // Défini le pointeur que doit avoir le corps et gif du post
+      };
     },
-    sendReactionUp() {
-      // Envois de la réaction positive au parent pour traiter l'envoi à l'api
-      if (this.reaction === 1) {
-        this.$emit("reaction-none");
-      }
-      this.$emit("reaction-up");
+    methods: {
+      displayCommentInput() {
+        // Envois de la requête pour dévoiler l'input pour créer un commentaire
+        this.$emit("d-comment-input");
+      },
+      sendReactionUp() {
+        // Envois de la réaction positive au parent pour traiter l'envoi à l'api
+        if (this.reaction === 1) {
+          this.$emit("reaction-none");
+        }
+        this.$emit("reaction-up");
+      },
+      sendReactionDown() {
+        // Envois de la réaction négative au parent pour traiter l'envoi à l'api
+        if (this.reaction === -1) {
+          this.$emit("reaction-none");
+        }
+        this.$emit("reaction-down");
+      },
+      updateReaction() {
+        // Update de la réaction au niveau visuelle avec CSS
+        if (this.reaction === 1) {
+          this.reactionUp = "reactionActive";
+          this.reactionDown = "reactionNone";
+        } else if (this.reaction === -1) {
+          this.reactionUp = "reactionNone";
+          this.reactionDown = "reactionActive";
+        } else {
+          this.reactionUp = "reactionNone";
+          this.reactionDown = "reactionNone";
+        }
+      },
+      goToFeedID(idPost) {
+        // Route dynamique menant au post spécifique et ses commentaires
+        if (idPost !== undefined) {
+          this.$router.push({ name: "Post", params: { id: idPost } });
+        }
+      },
+      goToProfile(idUser) {
+        // Route dynamique menant au profil de l'utilisateur ayant crée le commentaire
+        this.$router.push({ name: "Profile", params: { id: idUser } });
+      },
     },
-    sendReactionDown() {
-      // Envois de la réaction négative au parent pour traiter l'envoi à l'api
-      if (this.reaction === -1) {
-        this.$emit("reaction-none");
-      }
-      this.$emit("reaction-down");
-    },
-    updateReaction() {
-      // Update de la réaction au niveau visuelle avec CSS
-      if (this.reaction === 1) {
-        this.reactionUp = "reactionActive";
-        this.reactionDown = "reactionNone";
-      } else if (this.reaction === -1) {
-        this.reactionUp = "reactionNone";
-        this.reactionDown = "reactionActive";
+    mounted() {
+      // On update la réaction au niveau visuelle ainsi que le pointeur
+      this.updateReaction();
+      if (this.$route.name === "Home") {
+        this.cursor = "pointer";
       } else {
-        this.reactionUp = "reactionNone";
-        this.reactionDown = "reactionNone";
+        this.cursor = "default";
       }
     },
-    goToFeedID(idPost) {
-      // Route dynamique menant au post spécifique et ses commentaires
-      if (idPost !== undefined) {
-        this.$router.push({ name: "Post", params: { id: idPost } });
-      }
+    updated() {
+      // On update la réaction au niveau visuelle
+      this.updateReaction();
     },
-    goToProfile(idUser) {
-      // Route dynamique menant au profil de l'utilisateur ayant crée le commentaire
-      this.$router.push({ name: "Profile", params: { id: idUser } });
-    },
-  },
-  mounted() {
-    // On update la réaction au niveau visuelle ainsi que le pointeur
-    this.updateReaction();
-    if (this.$route.name === "Home") {
-      this.cursor = "pointer";
-    } else {
-      this.cursor = "default";
-    }
-  },
-  updated() {
-    // On update la réaction au niveau visuelle
-    this.updateReaction();
-  },
-};
+  };
 </script>
 
 <style scoped lang="scss">
-article {
-  position: relative;
-  background-color: #fffafa;
-  border-radius: 1em;
-  box-shadow: 1px 1px 5px;
-  .gif-img {
-    border-radius: 0 1em 0 1em;
-    @media (max-width: 768px) {
-      border-radius: 0;
+  article {
+    position: relative;
+    background-color: #fffafa;
+    border-radius: 1em;
+    box-shadow: 1px 1px 5px;
+    .gif-img {
+      border-radius: 0 1em 0 1em;
+      @media (max-width: 768px) {
+        border-radius: 0;
+      }
+    }
+    i {
+      &.reactionActive {
+        color: rgb(233, 68, 38);
+      }
+      &.reactionNone {
+        color: #2c3e50;
+      }
+      &:hover {
+        color: rgb(233, 68, 38);
+      }
+    }
+    .pointer {
+      cursor: pointer;
     }
   }
-  i {
-    &.reactionActive {
-      color: rgb(233, 68, 38);
-    }
-    &.reactionNone {
-      color: #2c3e50;
-    }
-    &:hover {
-      color: rgb(233, 68, 38);
-    }
-  }
-  .pointer {
-    cursor: pointer;
-  }
-}
-.text-muted {
+  .text-muted {
     color: #000000!important;
-}
-.app nav a.router-link-exact-active {
+  }
+  .app nav a.router-link-exact-active {
     color: #000000;
-}
+  }
 </style>

@@ -33,12 +33,12 @@
     <footer class="row border-bottom">
       <div class="col-6 col-md-2">
         <i
-          class="fas fa-angle-up fa-lg"
-          aria-hidden="true"
-          title="Aimer le post"
-          role="button"
-          :class="reactionUp"
-          v-on:click="sendReactionUp"
+                class="fas fa-angle-up fa-lg"
+                aria-hidden="true"
+                title="Aimer le post"
+                role="button"
+                :class="reactionUp"
+                v-on:click="sendReactionUp"
         ></i>
         <span class="sr-only">Aimer le commentaire</span>
         <span class="ml-1">
@@ -47,12 +47,12 @@
       </div>
       <div class="col-6 col-md-2">
         <i
-          class="fas fa-angle-down fa-lg"
-          aria-hidden="true"
-          title="Ne pas aimer le post"
-          role="button"
-          :class="reactionDown"
-          v-on:click="sendReactionDown"
+                class="fas fa-angle-down fa-lg"
+                aria-hidden="true"
+                title="Ne pas aimer le post"
+                role="button"
+                :class="reactionDown"
+                v-on:click="sendReactionDown"
         ></i>
         <span class="sr-only">Ne pas aimer le commentaire</span>
         <span class="ml-1">
@@ -71,81 +71,81 @@
 </template>
 
 <script>
-export default {
-  name: "Comment",
-  props: ["userID", "reaction"],
-  data: () => {
-    return {
-      reactionUp: "", // Nombre de réactions positives //
-      reactionDown: "", // Nombre de réactions négatives //
-    };
-  },
-  methods: {
-    sendReactionUp() {
-      // Envois de la réaction positive au parent pour traiter l'envoi à l'api //
-      if (this.reaction === 1) {
-        this.$emit("reaction-none");
-      }
-      this.$emit("reaction-up");
+  export default {
+    name: "Comment",
+    props: ["userID", "reaction"],
+    data: () => {
+      return {
+        reactionUp: "", // Nombre de réactions positives //
+        reactionDown: "", // Nombre de réactions négatives //
+      };
     },
-    sendReactionDown() {
-      // Envois de la réaction négative au parent pour traiter l'envoi à l'api //
-      if (this.reaction === -1) {
-        this.$emit("reaction-none");
-      }
-      this.$emit("reaction-down");
+    methods: {
+      sendReactionUp() {
+        // Envois de la réaction positive au parent pour traiter l'envoi à l'api //
+        if (this.reaction === 1) {
+          this.$emit("reaction-none");
+        }
+        this.$emit("reaction-up");
+      },
+      sendReactionDown() {
+        // Envois de la réaction négative au parent pour traiter l'envoi à l'api //
+        if (this.reaction === -1) {
+          this.$emit("reaction-none");
+        }
+        this.$emit("reaction-down");
+      },
+      updateReaction() {
+        // Update de la réaction au niveau visuelle avec CSS //
+        if (this.reaction === 1) {
+          this.reactionUp = "reactionActive";
+          this.reactionDown = "reactionNone";
+        } else if (this.reaction === -1) {
+          this.reactionUp = "reactionNone";
+          this.reactionDown = "reactionActive";
+        } else {
+          this.reactionUp = "reactionNone";
+          this.reactionDown = "reactionNone";
+        }
+      },
+      goToProfile(userID) {
+        // Route dynamique menant au profil de l'utilisateur ayant crée le commentaire //
+        this.$router.push({ name: "Profile", params: { id: userID } });
+      },
     },
-    updateReaction() {
-      // Update de la réaction au niveau visuelle avec CSS //
-      if (this.reaction === 1) {
-        this.reactionUp = "reactionActive";
-        this.reactionDown = "reactionNone";
-      } else if (this.reaction === -1) {
-        this.reactionUp = "reactionNone";
-        this.reactionDown = "reactionActive";
-      } else {
-        this.reactionUp = "reactionNone";
-        this.reactionDown = "reactionNone";
-      }
+    mounted() {
+      // On update la réaction au niveau visuelle //
+      this.updateReaction();
     },
-    goToProfile(userID) {
-      // Route dynamique menant au profil de l'utilisateur ayant crée le commentaire //
-      this.$router.push({ name: "Profile", params: { id: userID } });
+    updated() {
+      // On update la réaction au niveau visuelle //
+      this.updateReaction();
     },
-  },
-  mounted() {
-    // On update la réaction au niveau visuelle //
-    this.updateReaction();
-  },
-  updated() {
-    // On update la réaction au niveau visuelle //
-    this.updateReaction();
-  },
-};
+  };
 </script>
 
 <style scoped lang="scss">
-article {
-  position: relative;
-  i {
-    &.reactionActive {
-      color: rgb(233, 68, 38);
+  article {
+    position: relative;
+    i {
+      &.reactionActive {
+        color: rgb(233, 68, 38);
+      }
+      &.reactionNone {
+        color: #2c3e50;
+      }
+      &:hover {
+        color: rgb(233, 68, 38);
+      }
     }
-    &.reactionNone {
-      color: #2c3e50;
-    }
-    &:hover {
-      color: rgb(233, 68, 38);
+    .pointer {
+      cursor: pointer;
     }
   }
-  .pointer {
-    cursor: pointer;
-  }
-}
-.text-muted {
+  .text-muted {
     color: #000000!important;
-}
-.app nav a.router-link-exact-active {
+  }
+  .app nav a.router-link-exact-active {
     color: #000000;
-}
+  }
 </style>

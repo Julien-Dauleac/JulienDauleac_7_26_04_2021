@@ -12,21 +12,21 @@
       <!-- Fin -->
       <!-- Bouton responsive pour dévoiler le menu -->
       <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarNavAltMarkup"
-        aria-controls="navbarNavAltMarkup"
-        aria-expanded="false"
-        aria-label="Afficher navigation"
+              class="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target="#navbarNavAltMarkup"
+              aria-controls="navbarNavAltMarkup"
+              aria-expanded="false"
+              aria-label="Afficher navigation"
       >
         <span class="navbar-toggler-icon"></span>
       </button>
-    <!-- Fin -->
-    <!-- Menu de navigation -->
+      <!-- Fin -->
+      <!-- Menu de navigation -->
       <div
-        class="collapse navbar-collapse align-self-end justify-content-end"
-        id="navbarNavAltMarkup"
+              class="collapse navbar-collapse align-self-end justify-content-end"
+              id="navbarNavAltMarkup"
       >
         <div class="navbar-nav">
           <p class="mr-lg-4 text-right">
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-export default {
-  name: "NavHead",
-};
+  export default {
+    name: "NavHead",
+  };
 </script>

@@ -17,13 +17,13 @@
 </template>
 
 <script>
-export default {
-  name: "NavLog",
-};
+  export default {
+    name: "NavLog",
+  };
 </script>
 
 <style scoped lang="scss">
-header {
-  margin-top: 10em;
-}
+  header {
+    margin-top: 10em;
+  }
 </style>

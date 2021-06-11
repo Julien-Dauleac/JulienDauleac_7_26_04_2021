@@ -5,8 +5,8 @@
 </template>
 
 <script>
-export default {
-  name: "Alert",
-  props: ['alertType', 'alertMessage'],
-};
+  export default {
+    name: "Alert",
+    props: ['alertType', 'alertMessage'],
+  };
 </script>
