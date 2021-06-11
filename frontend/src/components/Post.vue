@@ -20,7 +20,7 @@
           </header>
           <!-- Fin -->
           <!-- Corps du post -->
-          <div class="row text-center pt-3" :class="cursor" role="link" @click="goToFeedID(idPost)">
+          <div class="row text-center pt-3" :class="cursor" role="link" @click="goToPost(idPost)">
             <p class="col-12 h5-lg">
               <slot name="postLegend"></slot>
             </p>
@@ -29,7 +29,7 @@
         </div>
       </div>
       <!-- Gif du post -->
-      <div class="col-md-4" :class="cursor" role="link" @click="goToFeedID(idPost)">
+      <div class="col-md-4" :class="cursor" role="link" @click="goToPost(idPost)">
         <slot name="postGif"></slot>
       </div>
       <!-- Fin -->
@@ -141,7 +141,7 @@
           this.reactionDown = "reactionNone";
         }
       },
-      goToFeedID(idPost) {
+      goToPost(idPost) {
         // Route dynamique menant au post spécifique et ses commentaires
         if (idPost !== undefined) {
           this.$router.push({ name: "Post", params: { id: idPost } });
