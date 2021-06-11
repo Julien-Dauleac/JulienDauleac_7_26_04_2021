@@ -1,5 +1,5 @@
 // Modules //
-const mysql = require('../app').connection; // Connexion à la bd //
+const mysql = require('../app').connection; // Permet de récupérer la connexion à la base de donnée //
 const bcrypt = require('bcrypt'); // Pour crypter le mot de passe //
 const jwt = require("jsonwebtoken"); // Génère un token sécurisé //
 const fs = require("fs"); // Permet de gérer les fichiers stockés //

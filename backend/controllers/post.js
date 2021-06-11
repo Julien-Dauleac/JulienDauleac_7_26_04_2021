@@ -1,6 +1,6 @@
 // Modules //
-const mysql = require('../app').connection;
-const fs = require("fs"); // Permet de gérer les fichiers stockés
+const mysql = require('../app').connection; // Permet de récupérer la connexion à la base de donnée //
+const fs = require("fs"); // Permet de gérer les fichiers stockés //
 
 // Pour obtenir tous les messages //
 exports.getAllPosts = (req, res, next) => {
