@@ -25,7 +25,7 @@
                 required
                 v-on:change="sendFile($event)"
         />
-        <label class="custom-file-label" for="image">Choisir un fichier multimédia</label>
+        <label class="custom-file-label" for="image">Choisir un fichier</label>
       </div>
       <!-- Fin -->
       <!-- Bouton pour le publier -->
@@ -44,12 +44,12 @@
     name: "CreatePost",
     data: () => {
       return {
-        legend: "", // Corps du post
-        image: "", // Gif du post
+        legend: "", // Corps du post //
+        image: "", // Gif du post //
       };
     },
     methods: {
-      sendPost() { // Envois du corps au parent pour traiter l'envois à l'API
+      sendPost() { // Envois du corps au parent pour traiter l'envois à l'API //
         const formValid = document
                 .getElementsByName("createPost")[0]
                 .checkValidity();
@@ -61,7 +61,7 @@
                   .getElementsByName("image")[0].value = null;
         }
       },
-      sendFile(event) { // Envois du Gif au parent pour traiter l'envois à l'API
+      sendFile(event) { // Envois du Gif au parent pour traiter l'envois à l'API //
         this.$data.image = event.target.files[0];
       },
     },
