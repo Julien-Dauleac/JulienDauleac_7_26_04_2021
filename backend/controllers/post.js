@@ -54,8 +54,6 @@ exports.createPost = (req, res, next) => {
     const userID = res.locals.userID;
     const legend = req.body.legend;
     const gifUrl = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`;
-    console.log(gifUrl);
-    console.log(req.file.filename);
 
     let sqlCreatePost;
     let values;
