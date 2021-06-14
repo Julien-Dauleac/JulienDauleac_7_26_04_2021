@@ -49,7 +49,7 @@ exports.getOnePost = (req, res, next) => {
     });
 };
 
-// Pour céer les messages //
+// Pour créer les messages //
 exports.createPost = (req, res, next) => {
     const userID = res.locals.userID;
     const legend = req.body.legend;
