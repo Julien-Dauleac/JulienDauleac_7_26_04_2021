@@ -2,7 +2,7 @@ import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
 
-// IMPORT AXIOS ET CONFIGURATION //
+// Import Axios et configuration //
 import axios from "axios";
 axios.defaults.baseURL = 'http://localhost:3000/api/';
 const token = sessionStorage.getItem('token');
