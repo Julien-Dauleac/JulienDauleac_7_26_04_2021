@@ -290,7 +290,7 @@
     }
 
     .text-muted {
-        color: #000000!important;
+        color: #000000;
     }
     .app nav a.router-link-exact-active {
         color: #000000;
