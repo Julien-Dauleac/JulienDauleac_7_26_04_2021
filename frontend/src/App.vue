@@ -33,9 +33,9 @@
   }
 }
 .text-muted {
-  color: #000000!important;
+  color: #000000;
 }
 .text-danger {
-  color: #0132c6!important;
+  color: #0132c6;
 }
 </style>
