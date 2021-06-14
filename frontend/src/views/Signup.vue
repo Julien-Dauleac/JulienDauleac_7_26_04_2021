@@ -44,7 +44,7 @@
         },
         methods: {
             updateDataSignup(data) {
-                // Stock le prénom et nom //
+                // Stock le prénom et le nom //
                 this.firstName = data.firstName;
                 this.lastName = data.lastName;
             },
