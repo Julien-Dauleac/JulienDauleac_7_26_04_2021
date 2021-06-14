@@ -4,7 +4,7 @@
   <header>
     <!-- Logo Groupomania -->
     <h1>
-      <img class="img-fluid" alt="Groupomania" src="../assets/logo.svg" />
+      <img class="img-fluid" alt="Groupomania" src="../assets/logo.png" />
     </h1>
     <!-- Fin -->
     <!-- Menu de navigation -->
@@ -21,9 +21,3 @@
     name: "NavLog",
   };
 </script>
-
-<style scoped lang="scss">
-  header {
-    margin-top: 10em;
-  }
-</style>

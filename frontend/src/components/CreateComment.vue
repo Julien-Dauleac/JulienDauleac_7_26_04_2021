@@ -30,7 +30,7 @@
       };
     },
     methods: {
-      sendComment() { // Envois du corps du commentaire au parent pour traiter l'envoi à l'api
+      sendComment() { // Envois du corps du commentaire au parent pour traiter l'envoi à l'api //
         this.$emit("comment-sent", this.$data);
       },
     },
