@@ -9,7 +9,7 @@
           <!-- Informations sur l'user -->
           <header class="row">
             <div class="col-12">
-              <p class="mb-0 font-weight-bold pointer" role="link" @click="goToProfile(userID)">
+              <p class="mb-0 font-weight-bold pointer" role="link" @click="goToProfile(idUser)">
                 <slot name="userAvatar"></slot>
                 <slot name="userName"></slot>
                 <span class="text-muted ml-1 font-weight-normal">
@@ -73,7 +73,7 @@
 <script>
   export default {
     name: "Comment",
-    props: ["userID", "reaction"],
+    props: ["idUser", "reaction"],
     data: () => {
       return {
         reactionUp: "", // Nombre de réactions positives //
@@ -108,9 +108,9 @@
           this.reactionDown = "reactionNone";
         }
       },
-      goToProfile(userID) {
+      goToProfile(idUser) {
         // Route dynamique menant au profil de l'utilisateur ayant crée le commentaire //
-        this.$router.push({ name: "Profile", params: { id: userID } });
+        this.$router.push({ name: "Profile", params: { id: idUser } });
       },
     },
     mounted() {
