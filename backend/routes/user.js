@@ -7,8 +7,8 @@ const router = express.Router();
 const userCtrl = require("../controllers/user");
 
 // Importation des middleware //
-const auth = require("../middleware/auth"); // Crée un token d'identification
-const multer = require("../middleware/multer-config"); // Permet d'envoyer un fichier dans la requête
+const auth = require("../middleware/auth"); // Crée un token d'identification //
+const multer = require("../middleware/multer-config"); // Permet d'envoyer un fichier dans la requête //
 
 // Route des users //
 router.post("/signup", userCtrl.signup);
