@@ -41,8 +41,9 @@
                 </template>
                 <!-- Fin -->
 
-                <!-- Afficher les images (gif, jpg, jpeg) dans les posts -->
-                <template v-slot:postGif v-if="post.gifUrl.includes('.gif') || post.gifUrl.includes('.jpg') || post.gifUrl.includes('.jpeg')">
+                <!-- Afficher les images (gif, jpg, jpeg, png) dans les posts -->
+                <template v-slot:postGif v-if="post.gifUrl.includes('.gif') || post.gifUrl.includes('.jpg')
+                || post.gifUrl.includes('.jpeg') || posts[indexLastPost].gifUrl.includes('.png')">
                     <img :src="post.gifUrl" class="card-img gif-img" alt="Image du post" />
                 </template>
                 <!-- Fin -->
