@@ -22,10 +22,10 @@
                     :key="post.postID"
                     :idPost="post.postID"
                     :idUser="post.userID"
-                    v-on:d-comment-input="dCommentInput(idPost)"
-                    v-on:reaction-down="sendReaction(idPost, -1)"
-                    v-on:reaction-up="sendReaction(idPost, 1)"
-                    v-on:reaction-none="sendReaction(idPost, 0)"
+                    v-on:d-comment-input="dCommentInput(post.postID)"
+                    v-on:reaction-down="sendReaction(post.postID, -1)"
+                    v-on:reaction-up="sendReaction(post.postID, 1)"
+                    v-on:reaction-none="sendReaction(post.postID, 0)"
                     :reaction="post.yourReaction"
             >
                 <!-- Bouton de suppression du post -->
@@ -35,7 +35,7 @@
                             aria-hidden="true"
                             title="Supprimer le post"
                             role="button"
-                            v-on:click="deletePost(idPost)"
+                            v-on:click="deletePost(post.postID)"
                     ></i>
                     <span class="sr-only">Supprimer le post</span>
                 </template>
@@ -72,16 +72,16 @@
                 <template v-slot:createComment>
                     <CreateComment
                             v-on:comment-sent="updateBody"
-                            v-if="commentInputShow && commentID === idPost"
+                            v-if="commentInputShow && commentID === post.postID"
                     >
                         <button
                                 class="btn btn-light form-control text-center"
                                 type="submit"
-                                v-on:click.prevent="postComment(idPost)"
+                                v-on:click.prevent="postComment(post.postID)"
                         >Publier</button>
                     </CreateComment>
                     <Alert
-                            v-if="alert.active && alert.activeComment && (commentID === idPost)"
+                            v-if="alert.active && alert.activeComment && (commentID === post.postID)"
                             :alertType="alert.type"
                             :alertMessage="alert.message"
                     />
