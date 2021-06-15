@@ -1,4 +1,4 @@
-// Pour la config des routes //
+// Pour la configuration des routes //
 
 import Vue from 'vue';
 import VueRouter from 'vue-router';
