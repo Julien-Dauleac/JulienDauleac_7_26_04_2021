@@ -121,7 +121,7 @@ exports.createComment = (req, res, next) => {
         if (err) {
             return res.status(500).json(err.message);
         }
-        res.status(201).json({ message: "Commentaire crée !" });
+        res.status(201).json({ message: "Commentaire créé !" });
     });
 };
 
