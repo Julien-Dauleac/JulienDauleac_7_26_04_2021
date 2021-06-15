@@ -20,7 +20,7 @@ exports.connection = mysql.createPool({
     host     : 'localhost',
     user     : `${process.env.DB_USER}`,
     password : `${process.env.DB_MDP}`,
-    database : 'groupomania',
+    database : `${process.env.DB_NAME}`,
     timezone : 'local',
     charset : 'utf8mb4'
 });
