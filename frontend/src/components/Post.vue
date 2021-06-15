@@ -104,32 +104,32 @@
     props: ["idPost", "idUser", "reaction"],
     data: () => {
       return {
-        reactionUp: "", // Nombre de réactions positives
-        reactionDown: "", // Nombre de réactions négatives
-        cursor: "pointer" // Défini le pointeur que doit avoir le corps et gif du post
+        reactionUp: "", // Nombre de réactions positives //
+        reactionDown: "", // Nombre de réactions négatives //
+        cursor: "pointer" // Défini le pointeur que doit avoir le corps et gif du post //
       };
     },
     methods: {
       displayCommentInput() {
-        // Envois de la requête pour dévoiler l'input pour créer un commentaire
+        // Envois de la requête pour dévoiler l'input pour créer un commentaire //
         this.$emit("d-comment-input");
       },
       sendReactionUp() {
-        // Envois de la réaction positive au parent pour traiter l'envoi à l'api
+        // Envois de la réaction positive au parent pour traiter l'envoi à l'api //
         if (this.reaction === 1) {
           this.$emit("reaction-none");
         }
         this.$emit("reaction-up");
       },
       sendReactionDown() {
-        // Envois de la réaction négative au parent pour traiter l'envoi à l'api
+        // Envois de la réaction négative au parent pour traiter l'envoi à l'api //
         if (this.reaction === -1) {
           this.$emit("reaction-none");
         }
         this.$emit("reaction-down");
       },
       updateReaction() {
-        // Update de la réaction au niveau visuelle avec CSS
+        // Update de la réaction au niveau visuelle avec CSS //
         if (this.reaction === 1) {
           this.reactionUp = "reactionActive";
           this.reactionDown = "reactionNone";
@@ -142,18 +142,18 @@
         }
       },
       goToPost(idPost) {
-        // Route dynamique menant au post spécifique et ses commentaires
+        // Route dynamique menant au post spécifique et ses commentaires //
         if (idPost !== undefined) {
           this.$router.push({ name: "Post", params: { id: idPost } });
         }
       },
       goToProfile(idUser) {
-        // Route dynamique menant au profil de l'utilisateur ayant crée le commentaire
+        // Route dynamique menant au profil de l'utilisateur ayant crée le commentaire //
         this.$router.push({ name: "Profile", params: { id: idUser } });
       },
     },
     mounted() {
-      // On update la réaction au niveau visuelle ainsi que le pointeur
+      // On update la réaction au niveau visuelle ainsi que le pointeur //
       this.updateReaction();
       if (this.$route.name === "Home") {
         this.cursor = "pointer";
@@ -162,7 +162,7 @@
       }
     },
     updated() {
-      // On update la réaction au niveau visuelle
+      // On update la réaction au niveau visuelle //
       this.updateReaction();
     },
   };
