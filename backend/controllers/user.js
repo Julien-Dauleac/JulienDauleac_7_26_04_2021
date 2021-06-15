@@ -83,7 +83,7 @@ exports.delete = (req, res, next) => {
 
         const filename = result[0].avatarUrl.split("/images/")[1];
         if (filename !== "avatarIcon.jpg") {
-            fs.unlink(`images/${filename}`, (e) => { // On supprime le fichier image en amont
+            fs.unlink(`images/${filename}`, (e) => { // On supprime le fichier image en amont //
                 if (e) {
                     console.log(e);
                 }
