@@ -36,7 +36,8 @@
                 </template>
 
                 <!-- Afficher les images (gif, jpg, jpeg, png) dans les posts -->
-                <template v-slot:postGif v-if="posts[indexLastPost].gifUrl.includes('.gif') || posts[indexLastPost].gifUrl.includes('.jpg') || posts[indexLastPost].gifUrl.includes('.jpeg') || posts[indexLastPost].gifUrl.includes('.png')">
+                <template v-slot:postGif v-if="posts[indexLastPost].gifUrl.includes('.gif') || posts[indexLastPost].gifUrl.includes('.jpg')
+                || posts[indexLastPost].gifUrl.includes('.jpeg') || posts[indexLastPost].gifUrl.includes('.png')">
                     <img :src="posts[indexLastPost].gifUrl" class="card-img gif-img" alt="Image du post" />
                 </template>
 
