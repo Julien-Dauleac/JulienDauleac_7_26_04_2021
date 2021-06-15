@@ -1,6 +1,6 @@
 // Modules //
-const http = require('http'); // Import du package http - https requiert un certificat SSL à obtenir avec un nom de domaine
-const app = require('./app'); // Import de app pour utilisation de l'application sur le serveur
+const http = require('http'); // Import du package http - https requiert un certificat SSL à obtenir avec un nom de domaine //
+const app = require('./app'); // Import de app pour utilisation de l'application sur le serveur //
 
 // Fonction NormalizePort //
 const normalizePort = val => { // Renvoie un port valide
@@ -20,7 +20,7 @@ const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 // Fonction ErrorHandler //
-const errorHandler = error => { // Gère les erreurs
+const errorHandler = error => { // Gère les erreurs //
     if (error.syscall !== 'listen') {
         throw error;
     }
@@ -41,9 +41,9 @@ const errorHandler = error => { // Gère les erreurs
 };
 
 // Creation du Serveur //
-const server = http.createServer(app); // https requiert un certificat SSL à obtenir avec un nom de domaine
-server.on('error', errorHandler); // Gère les erreurs
-server.on('listening', () => { // Consigne le port ou canal dans la console
+const server = http.createServer(app); // https requiert un certificat SSL à obtenir avec un nom de domaine //
+server.on('error', errorHandler); // Gère les erreurs //
+server.on('listening', () => { // Consigne le port ou canal dans la console //
     const address = server.address();
     const bind = typeof address === 'string' ? 'pipe ' + address : 'port ' + port;
     console.log('Listening on ' + bind);
