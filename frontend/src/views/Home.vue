@@ -35,7 +35,7 @@
                             aria-hidden="true"
                             title="Supprimer le post"
                             role="button"
-                            v-on:click="deletePost(post.postID)"
+                            v-on:click="deletePost(idPost)"
                     ></i>
                     <span class="sr-only">Supprimer le post</span>
                 </template>
@@ -72,16 +72,16 @@
                 <template v-slot:createComment>
                     <CreateComment
                             v-on:comment-sent="updateBody"
-                            v-if="commentInputShow && commentID === post.postID"
+                            v-if="commentInputShow && commentID === idPost"
                     >
                         <button
                                 class="btn btn-light form-control text-center"
                                 type="submit"
-                                v-on:click.prevent="postComment(post.postID)"
+                                v-on:click.prevent="postComment(idPost)"
                         >Publier</button>
                     </CreateComment>
                     <Alert
-                            v-if="alert.active && alert.activeComment && (commentID === post.postID)"
+                            v-if="alert.active && alert.activeComment && (commentID === idPost)"
                             :alertType="alert.type"
                             :alertMessage="alert.message"
                     />
