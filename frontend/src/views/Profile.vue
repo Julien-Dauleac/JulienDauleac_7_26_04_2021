@@ -7,7 +7,7 @@
         <div v-else>
             <!-- Navigation -->
             <NavHead />
-            <!-- Form pour update le profil si c'est notre profil -->
+            <!-- Formulaire pour update le profil si c'est notre profil -->
             <section class="border-bottom" v-if="user.yourProfile === 1">
                 <h2
                         class="h6"
@@ -92,7 +92,7 @@
                 </form>
             </section>
 
-            <!-- Profil de l'utilsateur -->
+            <!-- Profile de l'utilsateur -->
             <section class="mt-5">
                 <img
                         :src="user.avatarUrl"
@@ -113,7 +113,7 @@
                 </p>
             </section>
 
-            <!-- Form pour supprimer son compte -->
+            <!-- Formulaire pour supprimer son compte -->
             <section class="mt-5 border-top" v-if="user.yourProfile === 1">
                 <h2
                         class="mb-4 mt-2 text-danger h6"
