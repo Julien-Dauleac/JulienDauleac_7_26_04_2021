@@ -69,10 +69,10 @@
       };
     },
     methods: {
-      sendData() { // Envois des données au parent
+      sendData() { // Envois des données au parent //
         this.$emit("data-sent", this.$data);
       },
-      sendRequest() { // Envois de la requête d'envois au parent pour traiter l'envois à l'API
+      sendRequest() { // Envois de la requête d'envois au parent pour traiter l'envois à l'API //
         const emailValid = document.getElementById("email").checkValidity();
         const passwordValid = document.getElementById("password").checkValidity();
         if (emailValid && passwordValid) {
