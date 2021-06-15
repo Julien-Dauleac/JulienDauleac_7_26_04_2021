@@ -179,7 +179,7 @@
                 dataAlert.message = message;
             },
             getUser() {
-                // Récupère les infos de l'utilisateur //
+                // Récupère les informations de l'utilisateur //
                 this.$axios
                     .get(`user/${this.$route.params.id}/profile`)
                     .then((data) => {
@@ -212,7 +212,7 @@
                     });
             },
             updateProfile() {
-                // Update les autres infos //
+                // Update les autres informations //
                 const email = this.user.email;
                 const pseudo = this.user.pseudo;
                 const bio = this.user.bio;
@@ -274,7 +274,7 @@
             }
         },
         watch: {
-            // Permet d'actualiser l'utilisateur si l'on clic sur "Mon profil" pendant qu'on est déja sur une page d'utilisateur //
+            // Permet d'actualiser l'utilisateur si l'on clic sur "Mon profil" pendant qu'on est déjà sur une page d'utilisateur //
             "$route.params.id": function () {
                 this.getUser();
             },
