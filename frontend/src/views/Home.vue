@@ -234,7 +234,7 @@
             this.get();
         },
         mounted() {
-            // Récupère les posts et défini le titre
+            // Récupère les posts et défini le titre //
             this.get();
             document.title = "Fil d'actualité | Groupomania";
         },
