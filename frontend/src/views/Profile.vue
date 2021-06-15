@@ -92,7 +92,7 @@
                 </form>
             </section>
 
-            <!-- Profile de l'utilsateur -->
+            <!-- Profil de l'utilsateur -->
             <section class="mt-5">
                 <img
                         :src="user.avatarUrl"
