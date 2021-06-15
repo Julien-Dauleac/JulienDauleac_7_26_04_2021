@@ -4,7 +4,7 @@
     <div class="container-fluid">
         <!-- Navigation -->
         <NavLog />
-        <!-- Form pour login -->
+        <!-- Formulaire pour login -->
         <form onsubmit="return false">
             <InfoSignup v-on:data-sent="updateDataSignup" />
             <InfoLogin
