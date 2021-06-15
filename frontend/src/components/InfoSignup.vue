@@ -49,7 +49,7 @@
       };
     },
     methods: {
-      sendData() { // Envois des données au parent pour traiter l'envois à l'API
+      sendData() { // Envois des données au parent pour traiter l'envois à l'API //
         const firstNameValid = document
                 .getElementById("firstName")
                 .checkValidity();
