@@ -151,7 +151,7 @@
     import Comment from "../components/Comment.vue";
 
     export default {
-        name: "Post",
+        name: "Posts",
         components: {
             NavHead,
             Post,
@@ -288,7 +288,7 @@
         mounted() {
             // Récupère le post et ses commentaires et défini le titre //
             this.get();
-            document.title = "Post | Groupomania";
+            document.title = "Posts | Groupomania";
         },
     };
 </script>
