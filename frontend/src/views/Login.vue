@@ -7,9 +7,9 @@
         <!-- Fin -->
         <!-- Form pour login -->
         <form onsubmit="return false">
-            <Login validateText="Se connecter" v-on:data-sent="updateData" v-on:request-sent="login">
+            <InfoLogin validateText="Se connecter" v-on:data-sent="updateData" v-on:request-sent="login">
                 <template v-slot:messageError>{{ message }}</template>
-            </Login>
+            </InfoLogin>
         </form>
         <!-- Fin -->
     </div>
@@ -17,13 +17,13 @@
 
 <script>
     import NavLog from "../components/NavLog.vue";
-    import Login from "../components/Login.vue";
+    import InfoLogin from "../components/InfoLogin.vue";
 
     export default {
         name: "Login",
         components: {
             NavLog,
-            Login,
+            InfoLogin,
         },
         data: () => {
             return {

@@ -45,7 +45,7 @@
         </template>
         <!-- Formulaire pour login -->
         <form onsubmit="return false">
-            <Login
+            <InfoLogin
                     validateText="S'inscrire"
                     v-on:data-sent="updateDataLogin"
                     v-on:request-sent="signup"
@@ -54,7 +54,7 @@
                         v-slot:messagePassword
                 >Doit contenir: 1 majuscule, 1 minuscule et 1 chiffre (8 caractères minimum)</template>
                 <template v-slot:messageError>{{ message }}</template>
-            </Login>
+            </InfoLogin>
         </form>
         <!-- Fin -->
     </div>
@@ -62,13 +62,13 @@
 
 <script>
     import NavLog from "../components/NavLog.vue";
-    import Login from "../components/Login.vue";
+    import InfoLogin from "../components/InfoLogin.vue";
 
     export default {
         name: "Signup",
         components: {
             NavLog,
-            Login,
+            InfoLogin,
         },
         data: () => {
             return {
@@ -100,7 +100,7 @@
                         this.$axios.post("user/login", this.$data).then((data) => {
                             sessionStorage.setItem("token", data.data.token);
                             this.$axios.defaults.headers.common["Authorization"] =
-                                "Bearer " + data.data.token;
+                                "Bearer" + data.data.token;
                             this.$router.push("Home");
                         });
                     })
