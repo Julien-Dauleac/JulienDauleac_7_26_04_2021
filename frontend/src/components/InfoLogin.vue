@@ -1,4 +1,4 @@
-<!-- Infos à renseigner pour se connecter -->
+<!-- Informations à renseigner pour se connecter -->
 
 <template>
   <div>
