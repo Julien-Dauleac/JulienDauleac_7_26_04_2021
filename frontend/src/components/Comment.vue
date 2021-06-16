@@ -67,6 +67,7 @@
         </p>
       </div>
     </footer>
+    <!-- Fin -->
   </article>
 </template>
 
