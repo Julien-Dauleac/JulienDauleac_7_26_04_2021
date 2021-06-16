@@ -1,14 +1,51 @@
-<!-- Page de connexion -->
+<!-- Page d'inscription -->
 
 <template>
     <div class="container-fluid">
         <!-- Navigation -->
         <NavLog />
         <!-- Fin -->
+        <template>
+            <div>
+                <div class="row">
+                    <!-- Input pour le prénom -->
+                    <div class="col-lg-2 col-md-4 offset-lg-4 offset-md-2 mb-2">
+                        <input
+                                class="form-control text-center"
+                                type="text"
+                                placeholder="Votre prénom"
+                                id="firstName"
+                                required
+                                pattern="[a-zA-Z._-]{2,15}"
+                                maxlength="30"
+                                aria-label="Entrez votre prénom"
+                                v-model="firstName"
+                                v-on:input="sendData"
+                        />
+                    </div>
+                    <!-- Fin -->
+                    <!-- Input pour le nom -->
+                    <div class="col-lg-2 col-md-4 mb-2">
+                        <input
+                                class="form-control text-center"
+                                type="text"
+                                placeholder="Votre nom"
+                                id="lastName"
+                                required
+                                pattern="[a-zA-Z._-]{2,15}"
+                                maxlength="30"
+                                aria-label="Entrez votre nom"
+                                v-model="lastName"
+                                v-on:input="sendData"
+                        />
+                    </div>
+                    <!-- Fin -->
+                </div>
+            </div>
+        </template>
         <!-- Formulaire pour login -->
         <form onsubmit="return false">
-            <InfoSignup v-on:data-sent="updateDataSignup" />
-            <InfoLogin
+            <Login
                     validateText="S'inscrire"
                     v-on:data-sent="updateDataLogin"
                     v-on:request-sent="signup"
@@ -17,7 +54,7 @@
                         v-slot:messagePassword
                 >Doit contenir: 1 majuscule, 1 minuscule et 1 chiffre (8 caractères minimum)</template>
                 <template v-slot:messageError>{{ message }}</template>
-            </InfoLogin>
+            </Login>
         </form>
         <!-- Fin -->
     </div>
@@ -25,15 +62,13 @@
 
 <script>
     import NavLog from "../components/NavLog.vue";
-    import InfoLogin from "../components/InfoLogin.vue";
-    import InfoSignup from "../components/InfoSignup.vue";
+    import Login from "../components/Login.vue";
 
     export default {
         name: "Signup",
         components: {
             NavLog,
-            InfoLogin,
-            InfoSignup,
+            Login,
         },
         data: () => {
             return {
@@ -45,10 +80,12 @@
             };
         },
         methods: {
-            updateDataSignup(data) {
-                // Stock le prénom et le nom //
-                this.firstName = data.firstName;
-                this.lastName = data.lastName;
+            sendData() { // Envois des données au parent pour traiter l'envois à l'API //
+                const firstNameValid = document.getElementById("firstName").checkValidity();
+                const lastNameValid = document.getElementById("lastName").checkValidity();
+                if (firstNameValid && lastNameValid) {
+                    this.$emit("data-sent", this.$data);
+                }
             },
             updateDataLogin(data) {
                 // Stock l'email et le mot de passe //

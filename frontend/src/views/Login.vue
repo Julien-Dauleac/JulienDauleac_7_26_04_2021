@@ -1,4 +1,4 @@
-<!-- Page de login -->
+<!-- Page de connexion -->
 
 <template>
     <div class="container-fluid">
@@ -7,9 +7,9 @@
         <!-- Fin -->
         <!-- Form pour login -->
         <form onsubmit="return false">
-            <InfoLogin validateText="Se connecter" v-on:data-sent="updateData" v-on:request-sent="login">
+            <Login validateText="Se connecter" v-on:data-sent="updateData" v-on:request-sent="login">
                 <template v-slot:messageError>{{ message }}</template>
-            </InfoLogin>
+            </Login>
         </form>
         <!-- Fin -->
     </div>
@@ -17,13 +17,13 @@
 
 <script>
     import NavLog from "../components/NavLog.vue";
-    import InfoLogin from "../components/InfoLogin.vue";
+    import Login from "../components/Login.vue";
 
     export default {
         name: "Login",
         components: {
             NavLog,
-            InfoLogin,
+            Login,
         },
         data: () => {
             return {
