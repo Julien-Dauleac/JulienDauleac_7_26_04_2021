@@ -114,7 +114,7 @@
         },
         mounted() {
             // Défini le titre //
-            document.title = "Création de compte | Groupomania";
+            document.title = "S'inscrire | Groupomania";
         },
     };
 </script>
