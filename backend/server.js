@@ -3,7 +3,7 @@ const http = require('http'); // Import du package http - https requiert un cert
 const app = require('./app'); // Import de app pour utilisation de l'application sur le serveur //
 
 // Fonction NormalizePort //
-const normalizePort = val => { // Renvoie un port valide
+const normalizePort = val => { // Renvoie un port valide //
     const port = parseInt(val, 10);
 
     if (isNaN(port)) {
