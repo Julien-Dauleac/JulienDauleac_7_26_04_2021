@@ -34,7 +34,7 @@ const postRoutes = require("./routes/post");
 // Helmet //
 app.use(helmet()); // Protège l'app en paramétrant des Headers (notamment contre les failles XSS) //
 
-// Parametre des Headers //
+// Paramètre des Headers //
 app.use((req, res, next) => { // Evite les erreurs CORS //
 // on indique que les ressources peuvent être partagées depuis n'importe quelle origine //
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -46,10 +46,10 @@ app.use((req, res, next) => { // Evite les erreurs CORS //
 });
 
 // BodyParser //
-app.use(bodyParser.json()); // Rend le corps de la requête exploitable facilement
+app.use(bodyParser.json()); // Rend le corps de la requête exploitable facilement //
 
 // Express_Sanitizer //
-app.use(expressSanitizer()); // Protège contre les failles XSS
+app.use(expressSanitizer()); // Protège contre les failles XSS //
 
 // Routes //
 app.use("/images", express.static(path.join(__dirname, "images")));
