@@ -1,4 +1,4 @@
-<!-- Nav et Header des pages principales -->
+<!-- Navigation et Header des pages principales -->
 
 <template>
   <header class="mb-1 mb-md-3">
@@ -9,19 +9,6 @@
           <img class="img-fluid" alt="Groupomania" src="../assets/logo-home.svg" role="link" />
         </router-link>
       </h1>
-      <!-- Fin -->
-      <!-- Bouton responsive pour dévoiler le menu -->
-      <button
-              class="navbar-toggler"
-              type="button"
-              data-toggle="collapse"
-              data-target="#navbarNavAltMarkup"
-              aria-controls="navbarNavAltMarkup"
-              aria-expanded="false"
-              aria-label="Afficher navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
       <!-- Fin -->
       <!-- Menu de navigation -->
       <div
