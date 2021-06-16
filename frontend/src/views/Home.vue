@@ -7,15 +7,17 @@
         <div v-else>
             <!-- Navigation -->
             <NavHead />
+            <!-- Fin -->
             <!-- Création des posts -->
             <CreatePost v-on:post-sent="post" />
+            <!-- Fin -->
             <!-- Alert pour la création et suppression des posts -->
             <Alert
                     v-if="alert.active && !alert.activeComment"
                     :alertType="alert.type"
                     :alertMessage="alert.message"
             />
-
+            <!-- Fin -->
             <!-- Post -->
             <Post
                     v-for="post in posts"
@@ -28,6 +30,7 @@
                     v-on:reaction-none="sendReaction(post.postID, 0)"
                     :reaction="post.yourReaction"
             >
+                <!-- Fin -->
                 <!-- Bouton de suppression du post -->
                 <template v-slot:postDelete v-if="post.yourPost > 0">
                     <i
@@ -67,8 +70,10 @@
                 </template>
                 <template v-slot:userName>{{ post.firstName + ' ' + post.lastName }}</template>
                 <template v-slot:userPseudo v-if="post.pseudo !== null">{{ '@' + post.pseudo }}</template>
+                <!-- Fin -->
                 <!-- Corps du post -->
                 <template v-slot:postLegend>{{ post.legend }}</template>
+                <!-- Fin -->
                 <!-- Création d'un commentaire -->
                 <template v-slot:createComment>
                     <CreateComment
@@ -87,10 +92,12 @@
                             :alertMessage="alert.message"
                     />
                 </template>
+                <!-- Fin -->
                 <!-- Footer post -->
                 <template v-slot:postDate>{{ post.dateCreation }}</template>
                 <template v-slot:postUp>{{ post.countUp }}</template>
                 <template v-slot:postDown>{{ post.countDown }}</template>
+                <!-- Fin -->
             </Post>
         </div>
     </div>
