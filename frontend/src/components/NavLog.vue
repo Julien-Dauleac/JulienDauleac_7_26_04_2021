@@ -1,4 +1,4 @@
-<!-- Nav et Header des pages login et signup -->
+<!-- Navigation et Header des pages login et signup -->
 
 <template>
   <header>
