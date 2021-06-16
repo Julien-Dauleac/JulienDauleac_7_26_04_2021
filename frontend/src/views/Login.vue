@@ -4,12 +4,14 @@
     <div class="container-fluid">
         <!-- Navigation -->
         <NavLog />
+        <!-- Fin -->
         <!-- Form pour login -->
         <form onsubmit="return false">
             <InfoLogin validateText="Se connecter" v-on:data-sent="updateData" v-on:request-sent="login">
                 <template v-slot:messageError>{{ message }}</template>
             </InfoLogin>
         </form>
+        <!-- Fin -->
     </div>
 </template>
 
