@@ -4,6 +4,7 @@
     <div class="container-fluid">
         <!-- Navigation -->
         <NavLog />
+        <!-- Fin -->
         <!-- Formulaire pour login -->
         <form onsubmit="return false">
             <InfoSignup v-on:data-sent="updateDataSignup" />
@@ -18,6 +19,7 @@
                 <template v-slot:messageError>{{ message }}</template>
             </InfoLogin>
         </form>
+        <!-- Fin -->
     </div>
 </template>
 
