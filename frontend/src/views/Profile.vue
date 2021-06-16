@@ -5,8 +5,10 @@
         <!-- Alert si l'user est non connecté -->
         <Alert v-if="!connected" :alertType="alert.type" :alertMessage="alert.message" />
         <div v-else>
+            <!-- Fin -->
             <!-- Navigation -->
             <NavHead />
+            <!-- Fin -->
             <!-- Formulaire pour update le profil si c'est notre profil -->
             <section class="border-bottom" v-if="user.yourProfile === 1">
                 <h2
@@ -91,7 +93,7 @@
                     <p class="text-danger">{{ messageError }}</p>
                 </form>
             </section>
-
+            <!-- Fin -->
             <!-- Profil de l'utilsateur -->
             <section class="mt-5">
                 <img
@@ -112,7 +114,7 @@
                     <a :href="`mailto:${user.email}`" class="font-weight-bold">{{ user.email }}</a>
                 </p>
             </section>
-
+            <!-- Fin -->
             <!-- Formulaire pour supprimer son compte -->
             <section class="mt-5 border-top" v-if="user.yourProfile === 1">
                 <h2
@@ -139,6 +141,7 @@
                     </div>
                 </form>
             </section>
+            <!-- Fin -->
         </div>
     </div>
 </template>
