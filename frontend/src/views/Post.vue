@@ -7,12 +7,14 @@
         <div v-else>
             <!-- Navigation -->
             <NavHead />
+            <!-- Fin -->
             <!-- Alert pour la création et suppression des posts -->
             <Alert
                     v-if="alert.active && !alert.activeComment"
                     :alertType="alert.type"
                     :alertMessage="alert.message"
             />
+            <!-- Fin -->
             <!-- Post -->
             <Post
                     v-if="posts"
@@ -23,6 +25,7 @@
                     v-on:reaction-none="sendReaction(posts[indexLastPost].postID, 0)"
                     :reaction="posts[indexLastPost].yourReaction"
             >
+                <!-- Fin -->
                 <!-- Bouton suppression du post -->
                 <template v-slot:postDelete v-if="posts[indexLastPost].yourPost > 0">
                     <i
@@ -34,13 +37,13 @@
                     ></i>
                     <span class="sr-only">Supprimer le post</span>
                 </template>
-
+                <!-- Fin -->
                 <!-- Afficher les images (gif, jpg, jpeg, png) dans les posts -->
                 <template v-slot:postGif v-if="posts[indexLastPost].gifUrl.includes('.gif') || posts[indexLastPost].gifUrl.includes('.jpg')
                 || posts[indexLastPost].gifUrl.includes('.jpeg') || posts[indexLastPost].gifUrl.includes('.png')">
                     <img :src="posts[indexLastPost].gifUrl" class="card-img gif-img" alt="Image du post" />
                 </template>
-
+                <!-- Fin -->
                 <!-- Afficher les vidéos (mp4) dans les posts -->
                 <template v-slot:postGif v-else-if="posts[indexLastPost].gifUrl.includes('.mp4')">
                     <video width="100%" controls>
@@ -48,7 +51,7 @@
                         Votre navigateur ne prend pas en charge la vidéo HTML.
                     </video>
                 </template>
-
+                <!-- Fin -->
                 <!-- User -->
                 <template v-slot:userAvatar>
                     <img
@@ -64,9 +67,10 @@
                         v-slot:userPseudo
                         v-if="posts[indexLastPost].pseudo !== null"
                 >{{ '@' + posts[indexLastPost].pseudo }}</template>
+                <!-- Fin -->
                 <!-- Corps du post -->
                 <template v-slot:postLegend>{{ posts[indexLastPost].legend }}</template>
-
+                <!-- Fin -->
                 <!-- Création d'un commentaire -->
                 <template v-slot:createComment>
                     <CreateComment
@@ -85,12 +89,13 @@
                             :alertMessage="alert.message"
                     />
                 </template>
+                <!-- Fin -->
                 <!-- Footer post -->
                 <template v-slot:postDate>{{ posts[indexLastPost].dateCreation }}</template>
                 <template v-slot:postUp>{{ posts[indexLastPost].countUp }}</template>
                 <template v-slot:postDown>{{ posts[indexLastPost].countDown }}</template>
             </Post>
-
+            <!-- Fin -->
             <!-- Commentaire -->
             <Comment
                     v-for="comment in comments"
@@ -101,6 +106,7 @@
                     v-on:reaction-none="sendReaction(comment.postID, 0)"
                     :reaction="comment.yourReaction"
             >
+                <!-- Fin -->
                 <!-- Bouton suppression commentaire -->
                 <template v-slot:commentDelete v-if="comment.yourPost > 0">
                     <i
@@ -112,6 +118,7 @@
                     ></i>
                     <span class="sr-only">Supprimer le commentaire</span>
                 </template>
+                <!-- Fin -->
                 <!-- User -->
                 <template v-slot:userAvatar>
                     <img
@@ -122,12 +129,15 @@
                 </template>
                 <template v-slot:userName>{{ comment.firstName + ' ' + comment.lastName }}</template>
                 <template v-slot:userPseudo v-if="comment.pseudo !== null">{{ '@' + comment.pseudo }}</template>
+                <!-- Fin -->
                 <!-- Corps du commentaire -->
                 <template v-slot:commentBody>{{ comment.body }}</template>
+                <!-- Fin -->
                 <!-- Footer commentaire -->
                 <template v-slot:commentDate>{{ comment.dateCreation }}</template>
                 <template v-slot:commentUp>{{ comment.countUp }}</template>
                 <template v-slot:commentDown>{{ comment.countDown }}</template>
+                <!-- Fin -->
             </Comment>
         </div>
     </div>
