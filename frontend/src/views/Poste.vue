@@ -26,6 +26,18 @@
                     :reaction="posts[indexLastPost].yourReaction"
             >
                 <!-- Fin -->
+                <!-- Bouton modification du post -->
+                <template v-slot:postModify v-if="posts[indexLastPost].yourPost > 0">
+                    <i
+                            class="fas fa-times"
+                            aria-hidden="true"
+                            title="Modifier le post"
+                            role="button"
+                            v-on:click="modifyPost(posts[indexLastPost].postID)"
+                    ></i>
+                    <span class="sr-only">Supprimer le post</span>
+                </template>
+                <!-- Fin -->
                 <!-- Bouton suppression du post -->
                 <template v-slot:postDelete v-if="posts[indexLastPost].yourPost > 0">
                     <i
@@ -42,14 +54,6 @@
                 <template v-slot:postGif v-if="posts[indexLastPost].gifUrl.includes('.gif') || posts[indexLastPost].gifUrl.includes('.jpg')
                 || posts[indexLastPost].gifUrl.includes('.jpeg') || posts[indexLastPost].gifUrl.includes('.png')">
                     <img :src="posts[indexLastPost].gifUrl" class="card-img gif-img" alt="Image du post" />
-                </template>
-                <!-- Fin -->
-                <!-- Afficher les vidéos (mp4) dans les posts -->
-                <template v-slot:postGif v-else-if="posts[indexLastPost].gifUrl.includes('.mp4')">
-                    <video width="100%" controls>
-                        <source :src="posts[indexLastPost].gifUrl" type="video/mp4">
-                        Votre navigateur ne prend pas en charge la vidéo HTML.
-                    </video>
                 </template>
                 <!-- Fin -->
                 <!-- User -->
@@ -151,7 +155,7 @@
     import Comment from "../components/Comment.vue";
 
     export default {
-        name: "Posts",
+        name: "Poste",
         components: {
             NavHead,
             Post,
@@ -288,7 +292,7 @@
         mounted() {
             // Récupère le post et ses commentaires et défini le titre //
             this.get();
-            document.title = "Posts | Groupomania";
+            document.title = "Post | Groupomania";
         },
     };
 </script>

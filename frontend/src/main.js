@@ -11,6 +11,7 @@ if (token) {
     axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
 }
 Vue.prototype.$axios = axios;
+// Fin Axios //
 
 Vue.config.productionTip = false;
 
