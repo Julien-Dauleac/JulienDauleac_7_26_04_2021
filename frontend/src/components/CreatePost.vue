@@ -50,15 +50,11 @@
     },
     methods: {
       sendPost() { // Envois du corps au parent pour traiter l'envois à l'API //
-        const formValid = document
-                .getElementsByName("createPost")[0]
-                .checkValidity();
+        const formValid = document.getElementsByName("createPost")[0].checkValidity();
         if (formValid) {
           this.$emit("post-sent", this.$data);
-          document
-                  .getElementsByName("legend")[0].value = null;
-          document
-                  .getElementsByName("image")[0].value = null;
+          document.getElementsByName("legend")[0].value = null;
+          document.getElementsByName("image")[0].value = null;
         }
       },
       sendFile(event) { // Envois du Gif au parent pour traiter l'envois à l'API //
