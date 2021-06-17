@@ -11,8 +11,8 @@ const auth = require("../middleware/auth"); // Crée un token d'identification /
 const multer = require("../middleware/multer-config"); // Permet d'envoyer un fichier dans la requête //
 
 // Route des users //
+router.post("/login", userCtrl.login);
 router.post("/signup", userCtrl.signup);
-router.post("/", userCtrl.login);
 router.delete("/delete", auth, userCtrl.delete);
 router.get("/:id/profile", auth, userCtrl.profile);
 router.put("/modify", auth, multer, userCtrl.modify);

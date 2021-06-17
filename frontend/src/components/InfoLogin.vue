@@ -60,7 +60,7 @@
 
 <script>
   export default {
-    name: "Login",
+    name: "InfoLogin",
     props: ["validateText"],
     data: () => {
       return {

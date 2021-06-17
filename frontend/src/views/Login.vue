@@ -5,7 +5,7 @@
         <!-- Navigation -->
         <NavLog />
         <!-- Fin -->
-        <!-- Form pour login -->
+        <!-- Formulaire pour la connexion -->
         <form onsubmit="return false">
             <InfoLogin validateText="Se connecter" v-on:data-sent="updateData" v-on:request-sent="login">
                 <template v-slot:messageError>{{ message }}</template>
@@ -41,11 +41,10 @@
             login() {
                 // Connecte l'utilisateur //
                 this.$axios
-                    .post("user/login", this.$data)
+                    .post("user", this.$data)
                     .then((data) => {
                         sessionStorage.setItem("token", data.data.token);
-                        this.$axios.defaults.headers.common["Authorization"] =
-                            "Bearer " + data.data.token;
+                        this.$axios.defaults.headers.common['Authorization'] = 'Bearer ' + data.data.token;
                         this.$router.push("Home");
                     })
                     .catch((e) => {
