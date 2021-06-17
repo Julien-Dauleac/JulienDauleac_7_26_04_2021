@@ -46,7 +46,8 @@ CREATE TABLE `post` (
 
 LOCK TABLES `post` WRITE;
 /*!40000 ALTER TABLE `post` DISABLE KEYS */;
-INSERT INTO `post` VALUES (21,4,'Bonjour !','http://localhost:3000/images/Ketchup_Heinz.jpg1623845613309.jpeg',NULL,NULL,'2021-06-16 14:13:33'),(22,4,NULL,NULL,21,'Salut !','2021-06-16 14:13:46');
+INSERT INTO `post` VALUES (21,4,'Bonjour !','http://localhost:3000/images/Ketchup_Heinz.jpg1623845613309.jpeg',NULL,NULL,'2021-06-16 14:13:33'),
+                          (22,4,NULL,NULL,21,'Salut !','2021-06-16 14:13:46');
 /*!40000 ALTER TABLE `post` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
