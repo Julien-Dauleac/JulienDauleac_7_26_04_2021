@@ -61,7 +61,7 @@
                     .post("user/signup", this.$data)
                     .then(() => {
                         this.$axios
-                            .post("user", this.$data)
+                            .post("user/login", this.$data)
                             .then((data) => {
                             sessionStorage.setItem("token", data.data.token);
                             this.$axios.defaults.headers.common['Authorization'] = 'Bearer ' + data.data.token;
