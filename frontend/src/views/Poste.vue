@@ -8,7 +8,7 @@
             <!-- Navigation -->
             <NavHead />
             <!-- Fin -->
-            <!-- Alert pour la création et suppression des posts -->
+            <!-- Alert pour la création, la modification et la suppression des posts -->
             <Alert
                     v-if="alert.active && !alert.activeComment"
                     :alertType="alert.type"
@@ -111,7 +111,19 @@
                     :reaction="comment.yourReaction"
             >
                 <!-- Fin -->
-                <!-- Bouton suppression commentaire -->
+                <!-- Bouton de modification commentaire -->
+                <template v-slot:commentModify v-if="comment.yourPost > 0">
+                    <i
+                            class="fa-solid fa-pencil"
+                            aria-hidden="true"
+                            title="Modifier le commentaire"
+                            role="button"
+                            v-on:click="modifyPost(comment.postID)"
+                    ></i>
+                    <span class="sr-only">Modifier le commentaire</span>
+                </template>
+                <!-- Fin -->
+                <!-- Bouton de suppression commentaire -->
                 <template v-slot:commentDelete v-if="comment.yourPost > 0">
                     <i
                             class="fas fa-times"
@@ -225,6 +237,25 @@
                         }
                     });
             },
+            modifyPost(postID) {
+                // Modifie un post ou un commentaire si c'est le notre //
+                this.$axios
+                    .modify("post/" + postID)
+                    .then(() => {
+                        if (postID === this.$route.params.id) {
+                            this.$router.push({ name: "Home"});
+                        }
+                        const indexPost = this.$data.posts
+                            .map((e) => {
+                                return e.postID;
+                            })
+                            .indexOf(parseInt(postID));
+                        this.$data.posts.splice(indexPost, 1);
+
+                        this.alertActive("alert-warning", "Commentaire modifié !");
+                    })
+                    .catch((e) => console.log(e));
+            },
             deletePost(postID) {
                 // Supprime un post ou un commentaire si c'est le notre //
                 this.$axios
@@ -304,13 +335,22 @@
         height: 2em;
         object-fit: cover;
     }
-    i {
+    .fa-times {
         position: absolute;
         left: 1em;
         top: 1em;
         z-index: 1;
         &:hover {
             color: rgb(233, 68, 38);
+        }
+    }
+    .fa-pencil {
+        position: absolute;
+        left: 3em;
+        top: 1em;
+        z-index: 1;
+        &:hover {
+            color: rgb(38, 64, 233);
         }
     }
 </style>

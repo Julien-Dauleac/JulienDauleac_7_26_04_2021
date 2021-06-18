@@ -11,7 +11,7 @@
             <!-- Création des posts -->
             <CreatePost v-on:post-sent="post" />
             <!-- Fin -->
-            <!-- Alert pour la création et suppression des posts -->
+            <!-- Alert pour la création, la modification et la suppression des posts -->
             <Alert
                     v-if="alert.active && !alert.activeComment"
                     :alertType="alert.type"
@@ -31,6 +31,18 @@
                     :reaction="post.yourReaction"
             >
                 <!-- Fin -->
+                <!-- Bouton de modification du post -->
+                <template v-slot:postModify v-if="post.yourPost > 0">
+                    <i
+                            class="fa-solid fa-pencil"
+                            aria-hidden="true"
+                            title="Modifier le post"
+                            role="button"
+                            v-on:click="modifyPost(post.postID)"
+                    ></i>
+                    <span class="sr-only">Modifier le post</span>
+                </template>
+                <!-- Fin -->
                 <!-- Bouton de suppression du post -->
                 <template v-slot:postDelete v-if="post.yourPost > 0">
                     <i
@@ -43,23 +55,12 @@
                     <span class="sr-only">Supprimer le post</span>
                 </template>
                 <!-- Fin -->
-
                 <!-- Afficher les images (gif, jpg, jpeg, png) dans les posts -->
                 <template v-slot:postGif v-if="post.gifUrl.includes('.gif') || post.gifUrl.includes('.jpg')
                 || post.gifUrl.includes('.jpeg') || posts[indexLastPost].gifUrl.includes('.png')">
                     <img :src="post.gifUrl" class="card-img gif-img" alt="Image du post" />
                 </template>
                 <!-- Fin -->
-
-                <!-- Afficher les vidéos (mp4) dans les posts -->
-                <template v-slot:postGif v-else-if="post.gifUrl.includes('.mp4')">
-                    <video width="100%" controls>
-                        <source :src="post.gifUrl" type="video/mp4">
-                        Votre navigateur ne prend pas en charge la vidéo HTML.
-                    </video>
-                </template>
-                <!-- Fin -->
-
                 <!-- User -->
                 <template v-slot:userAvatar>
                     <img
@@ -181,6 +182,22 @@
                     })
                     .catch((e) => console.log(e));
             },
+            modifyPost(postID) {
+                // Modifie un post si c'est le notre //
+                this.$axios
+                    .modify("post/" + postID)
+                    .then(() => {
+                        const indexPost = this.$data.posts
+                            .map((e) => {
+                                return e.postID;
+                            })
+                            .indexOf(parseInt(postID));
+                        this.$data.posts.splice(indexPost, 1);
+
+                        this.alertActive("alert-warning", "Post modifié !");
+                    })
+                    .catch((e) => console.log(e));
+            },
             deletePost(postID) {
                 // Supprime un post si c'est le notre //
                 this.$axios
@@ -255,13 +272,22 @@
         height: 2em;
         object-fit: cover;
     }
-    i {
+    .fa-times {
         position: absolute;
         left: 1em;
         top: 1em;
         z-index: 1;
         &:hover {
             color: rgb(233, 68, 38);
+        }
+    }
+    .fa-pencil {
+        position: absolute;
+        left: 3em;
+        top: 1em;
+        z-index: 1;
+        &:hover {
+            color: rgb(38, 64, 233);
         }
     }
 </style>

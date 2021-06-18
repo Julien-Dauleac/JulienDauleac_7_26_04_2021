@@ -68,6 +68,44 @@ exports.createPost = (req, res, next) => {
     });
 };
 
+// Pour modifier les messages //
+exports.modifyPost = (req, res, next) => {
+    const postID = req.params.id;
+    const userID = res.locals.userID;
+
+    let sqlModifyPost;
+    let sqlSelectPost;
+
+    sqlSelectPost = "SELECT gifUrl FROM post WHERE postID = ?";
+    mysql.query(sqlSelectPost, [postID], function (err, result) {
+        if (result > 0) {
+            const filename = result[0].gifUrl.split("/images/")[1];
+            fs.unlink(`images/${filename}`, () => { // On supprime le fichier image en amont //
+                sqlModifyPost = "MODIFY FROM post WHERE userID = ? AND postID = ?";
+                mysql.query(sqlModifyPost, [userID, postID], function (err, result) {
+                    if (err) {
+                        return res.status(500).json(err.message);
+                    }
+                    res.status(200).json({ message: "Post modifié !" });
+                });
+            });
+        } else {
+            sqlModifyPost = "MODIFY FROM post WHERE userID = ? AND postID = ?";
+            mysql.query(sqlModifyPost, [userID, postID], function (err, result) {
+                if (err) {
+                    return res.status(500).json(err.message);
+                }
+                res.status(200).json({ message: "Post modifié !" });
+            });
+        }
+        if (err) {
+            return res.status(500).json(err.message);
+        }
+
+
+    });
+};
+
 // Pour supprimer les messages //
 exports.deletePost = (req, res, next) => {
     const postID = req.params.id;
