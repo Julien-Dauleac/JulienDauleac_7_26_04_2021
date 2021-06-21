@@ -34,7 +34,7 @@
                 <!-- Bouton de modification du post -->
                 <template v-slot:postModify v-if="post.yourPost > 0">
                     <i
-                            class="fa-solid fa-pencil"
+                            class="fas fa-pencil-alt"
                             aria-hidden="true"
                             title="Modifier le post"
                             role="button"
@@ -44,7 +44,7 @@
                 </template>
                 <!-- Fin -->
                 <!-- Bouton de suppression du post -->
-                <template v-slot:postDelete v-if="post.yourPost > 0">
+                <template v-slot:postDelete v-if="role === admin || post.yourPost > 0">
                     <i
                             class="fas fa-times"
                             aria-hidden="true"
@@ -185,7 +185,7 @@
             modifyPost(postID) {
                 // Modifie un post si c'est le notre //
                 this.$axios
-                    .modify("post/" + postID)
+                    .put("post/" + postID)
                     .then(() => {
                         const indexPost = this.$data.posts
                             .map((e) => {
@@ -281,7 +281,7 @@
             color: rgb(233, 68, 38);
         }
     }
-    .fa-pencil {
+    .fa-pencil-alt {
         position: absolute;
         left: 3em;
         top: 1em;

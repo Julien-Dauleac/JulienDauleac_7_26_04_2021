@@ -10,7 +10,7 @@
             rows="2"
             required
             placeholder="Créer un commentaire"
-            aria-label="Ecrire un commentaire"
+            aria-label="Écrire un commentaire"
             v-model="body"
             v-on:input="sendComment"
     ></textarea>
@@ -30,7 +30,7 @@
       };
     },
     methods: {
-      sendComment() { // Envois du corps du commentaire au parent pour traiter l'envoi à l'api //
+      sendComment() { // Envoi du corps du commentaire au parent pour traiter l'envoi à l'api //
         this.$emit("comment-sent", this.$data);
       },
     },

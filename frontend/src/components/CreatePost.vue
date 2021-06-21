@@ -12,20 +12,19 @@
               maxlength="180"
               required
               placeholder="Créer un post"
-              aria-label="Ecrire un post"
+              aria-label="Écrire un post"
               v-model="legend"
       ></textarea>
       <!-- Fin -->
-      <!-- Sélection du Gif -->
+      <!-- Sélection de l'image -->
       <div class="custom-file">
         <input
                 name="image"
                 type="file"
                 class="custom-file-input"
-                required
                 v-on:change="sendFile($event)"
         />
-        <label class="custom-file-label" for="image">Choisir un fichier</label>
+        <label class="custom-file-label" for="image">Choisir une image</label>
       </div>
       <!-- Fin -->
       <!-- Bouton pour le publier -->
@@ -45,11 +44,11 @@
     data: () => {
       return {
         legend: "", // Corps du post //
-        image: "", // Gif du post //
+        image: "", // Image du post //
       };
     },
     methods: {
-      sendPost() { // Envois du corps au parent pour traiter l'envois à l'API //
+      sendPost() { // Envoi du corps au parent pour traiter l'envoi à l'API //
         const formValid = document.getElementsByName("createPost")[0].checkValidity();
         if (formValid) {
           this.$emit("post-sent", this.$data);
@@ -57,7 +56,7 @@
           document.getElementsByName("image")[0].value = null;
         }
       },
-      sendFile(event) { // Envois du Gif au parent pour traiter l'envois à l'API //
+      sendFile(event) { // Envoi de l'image au parent pour traiter l'envoi à l'API //
         this.$data.image = event.target.files[0];
       },
     },

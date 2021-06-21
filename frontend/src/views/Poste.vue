@@ -29,17 +29,17 @@
                 <!-- Bouton modification du post -->
                 <template v-slot:postModify v-if="posts[indexLastPost].yourPost > 0">
                     <i
-                            class="fas fa-times"
+                            class="fas fa-pencil-alt"
                             aria-hidden="true"
                             title="Modifier le post"
                             role="button"
                             v-on:click="modifyPost(posts[indexLastPost].postID)"
                     ></i>
-                    <span class="sr-only">Supprimer le post</span>
+                    <span class="sr-only">Modifier le post</span>
                 </template>
                 <!-- Fin -->
                 <!-- Bouton suppression du post -->
-                <template v-slot:postDelete v-if="posts[indexLastPost].yourPost > 0">
+                <template v-slot:postDelete v-if="role === admin || posts[indexLastPost].yourPost > 0">
                     <i
                             class="fas fa-times"
                             aria-hidden="true"
@@ -114,7 +114,7 @@
                 <!-- Bouton de modification commentaire -->
                 <template v-slot:commentModify v-if="comment.yourPost > 0">
                     <i
-                            class="fa-solid fa-pencil"
+                            class="fas fa-pencil-alt"
                             aria-hidden="true"
                             title="Modifier le commentaire"
                             role="button"
@@ -124,7 +124,7 @@
                 </template>
                 <!-- Fin -->
                 <!-- Bouton de suppression commentaire -->
-                <template v-slot:commentDelete v-if="comment.yourPost > 0">
+                <template v-slot:commentDelete v-if="role === admin || comment.yourPost > 0">
                     <i
                             class="fas fa-times"
                             aria-hidden="true"
@@ -344,7 +344,7 @@
             color: rgb(233, 68, 38);
         }
     }
-    .fa-pencil {
+    .fa-pencil-alt {
         position: absolute;
         left: 3em;
         top: 1em;
