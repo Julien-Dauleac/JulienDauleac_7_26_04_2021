@@ -19,7 +19,7 @@
             />
             <!-- Fin -->
             <!-- Post -->
-            <Post
+            <BlockPost
                     v-for="post in posts"
                     :key="post.postID"
                     :idPost="post.postID"
@@ -99,14 +99,14 @@
                 <template v-slot:postUp>{{ post.countUp }}</template>
                 <template v-slot:postDown>{{ post.countDown }}</template>
                 <!-- Fin -->
-            </Post>
+            </BlockPost>
         </div>
     </div>
 </template>
 
 <script>
     import NavHead from "../components/NavHead.vue";
-    import Post from "../components/Post.vue";
+    import BlockPost from "../components/BlockPost.vue";
     import Alert from "../components/Alert.vue";
     import CreatePost from "../components/CreatePost.vue";
     import CreateComment from "../components/CreateComment.vue";
@@ -115,7 +115,7 @@
         name: "Home",
         components: {
             NavHead,
-            Post,
+            BlockPost,
             Alert,
             CreatePost,
             CreateComment,

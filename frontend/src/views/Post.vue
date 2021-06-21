@@ -16,7 +16,7 @@
             />
             <!-- Fin -->
             <!-- Post -->
-            <Post
+            <BlockPost
                     v-if="posts"
                     :idUser="posts[indexLastPost].userID"
                     v-on:d-comment-input="dCommentInput(posts[indexLastPost].postID)"
@@ -98,7 +98,7 @@
                 <template v-slot:postDate>{{ posts[indexLastPost].dateCreation }}</template>
                 <template v-slot:postUp>{{ posts[indexLastPost].countUp }}</template>
                 <template v-slot:postDown>{{ posts[indexLastPost].countDown }}</template>
-            </Post>
+            </BlockPost>
             <!-- Fin -->
             <!-- Commentaire -->
             <Comment
@@ -161,16 +161,16 @@
 
 <script>
     import NavHead from "../components/NavHead.vue";
-    import Post from "../components/Post.vue";
+    import BlockPost from "../components/BlockPost.vue";
     import Alert from "../components/Alert.vue";
     import CreateComment from "../components/CreateComment.vue";
     import Comment from "../components/Comment.vue";
 
     export default {
-        name: "Poste",
+        name: "Post",
         components: {
             NavHead,
-            Post,
+            BlockPost,
             Alert,
             CreateComment,
             Comment,

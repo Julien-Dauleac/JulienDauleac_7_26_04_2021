@@ -101,7 +101,7 @@
 
 <script>
   export default {
-    name: "Post",
+    name: "BlockPost",
     props: ["idPost", "idUser", "reaction"],
     data: () => {
       return {
