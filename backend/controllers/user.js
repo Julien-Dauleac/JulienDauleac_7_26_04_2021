@@ -17,7 +17,7 @@ exports.signup = (req, res, next) => {
             let sqlSignup;
             let values;
 
-            sqlSignup = "INSERT INTO user VALUES (NULL, ?, ?, ?, NULL, ?, NULL, avatarUrl, NOW())";
+            sqlSignup = "INSERT INTO user VALUES (NULL, ?, ?, ?, NULL, ?, NULL, NULL, avatarUrl, NOW())";
             values = [email, firstName, lastName, password,];
             mysql.query(sqlSignup, values, function (err, result) {
                 if (err) {
@@ -122,7 +122,7 @@ exports.profile = (req, res, next) => {
         userIDAsked = userID;
     }
 
-    sqlGetUser = `SELECT email, firstName, lastName, pseudo, bio, avatarUrl, DATE_FORMAT(dateCreation, 'Inscrit depuis le %e %M %Y à %kh%i') AS dateCreation,
+    sqlGetUser = `SELECT email, firstName, lastName, pseudo, role, bio, avatarUrl, DATE_FORMAT(dateCreation, 'Inscrit depuis le %e %M %Y à %kh%i') AS dateCreation,
                          COUNT(CASE WHEN userID = ? then 1 else null end) AS yourProfile FROM user WHERE userID = ?`;
     mysql.query(sqlGetUser, [userID, userIDAsked], function (err, result) {
         if (err) {

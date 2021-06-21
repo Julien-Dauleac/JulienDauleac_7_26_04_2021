@@ -53,8 +53,10 @@ exports.getOnePost = (req, res, next) => {
 exports.createPost = (req, res, next) => {
     const userID = res.locals.userID;
     const legend = req.body.legend;
-    const gifUrl = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`;
-
+    let gifUrl = "";
+    if(req.file){
+         gifUrl = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`;
+    }
     let sqlCreatePost;
     let values;
 
@@ -78,10 +80,10 @@ exports.modifyPost = (req, res, next) => {
 
     sqlSelectPost = "SELECT gifUrl FROM post WHERE postID = ?";
     mysql.query(sqlSelectPost, [postID], function (err, result) {
-        if (result > 0) {
+        if (result.length > 0) {
             const filename = result[0].gifUrl.split("/images/")[1];
             fs.unlink(`images/${filename}`, () => { // On supprime le fichier image en amont //
-                sqlModifyPost = "MODIFY FROM post WHERE userID = ? AND postID = ?";
+                sqlModifyPost = "UPDATE post SET legend = ?, gifUrl = ? WHERE userID = ? AND postID = ?";
                 mysql.query(sqlModifyPost, [userID, postID], function (err, result) {
                     if (err) {
                         return res.status(500).json(err.message);
@@ -90,13 +92,7 @@ exports.modifyPost = (req, res, next) => {
                 });
             });
         } else {
-            sqlModifyPost = "MODIFY FROM post WHERE userID = ? AND postID = ?";
-            mysql.query(sqlModifyPost, [userID, postID], function (err, result) {
-                if (err) {
-                    return res.status(500).json(err.message);
-                }
-                res.status(200).json({ message: "Post modifié !" });
-            });
+            return res.status(400).json({ message: "Ce poste n'existe pas"})
         }
         if (err) {
             return res.status(500).json(err.message);
@@ -114,9 +110,10 @@ exports.deletePost = (req, res, next) => {
     let sqlDeletePost;
     let sqlSelectPost;
 
-    sqlSelectPost = "SELECT gifUrl FROM post WHERE postID = ?";
-    mysql.query(sqlSelectPost, [postID], function (err, result) {
-        if (result > 0) {
+    sqlSelectPost = "SELECT gifUrl FROM post WHERE postID = ? AND userID = ?";
+    mysql.query(sqlSelectPost, [postID, userID], function (err, result) {
+        console.log(result);
+        if (result.length > 0) {
             const filename = result[0].gifUrl.split("/images/")[1];
             fs.unlink(`images/${filename}`, () => { // On supprime le fichier image en amont //
                 sqlDeletePost = "DELETE FROM post WHERE userID = ? AND postID = ?";
@@ -128,13 +125,7 @@ exports.deletePost = (req, res, next) => {
                 });
             });
         } else {
-            sqlDeletePost = "DELETE FROM post WHERE userID = ? AND postID = ?";
-            mysql.query(sqlDeletePost, [userID, postID], function (err, result) {
-                if (err) {
-                    return res.status(500).json(err.message);
-                }
-                res.status(200).json({ message: "Post supprimé !" });
-            });
+            return res.status(400).json({ message: "Ce poste n'existe pas"})
         }
         if (err) {
             return res.status(500).json(err.message);
