@@ -111,7 +111,7 @@ exports.delete = (req, res, next) => {
     });
 };
 
-// Profile //
+// Profile de l'utilisateur //
 exports.profile = (req, res, next) => {
     const userID = res.locals.userID;
     let userIDAsked = req.params.id;
@@ -135,7 +135,7 @@ exports.profile = (req, res, next) => {
     });
 };
 
-// Modify //
+// Pour modifier le profile de l'utilisateur //
 exports.modify = (req, res, next) => {
     const userID = res.locals.userID;
     const email = req.body.email;

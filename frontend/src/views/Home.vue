@@ -1,4 +1,4 @@
-<!-- Page principale avec la navigation, la création et les posts -->
+<!-- Page principale avec la navigation, la création des posts et l'affichage des posts -->
 
 <template>
     <div>
@@ -75,8 +75,8 @@
                 <!-- Corps du post -->
                 <template v-slot:postLegend>{{ post.legend }}</template>
                 <!-- Fin -->
-                <!-- Création d'un commentaire -->
                 <template v-slot:createComment>
+                    <!-- Création d'un commentaire -->
                     <CreateComment
                             v-on:comment-sent="updateBody"
                             v-if="commentInputShow && commentID === post.postID"
@@ -87,13 +87,15 @@
                                 v-on:click.prevent="postComment(post.postID)"
                         >Publier</button>
                     </CreateComment>
+                    <!-- Fin -->
+                    <!-- Alert pour la création d'un commentaire -->
                     <Alert
                             v-if="alert.active && alert.activeComment && (commentID === post.postID)"
                             :alertType="alert.type"
                             :alertMessage="alert.message"
                     />
+                    <!-- Fin -->
                 </template>
-                <!-- Fin -->
                 <!-- Footer post -->
                 <template v-slot:postDate>{{ post.dateCreation }}</template>
                 <template v-slot:postUp>{{ post.countUp }}</template>
