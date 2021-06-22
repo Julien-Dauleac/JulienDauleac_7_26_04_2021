@@ -83,7 +83,7 @@ exports.modifyPost = (req, res, next) => {
         if (result.length > 0) {
             const filename = result[0].gifUrl.split("/images/")[1];
             fs.unlink(`images/${filename}`, () => { // On supprime le fichier image en amont //
-                sqlModifyPost = "UPDATE post SET legend = ?, gifUrl = ? WHERE userID = ? AND postID = ?";
+                sqlModifyPost = "UPDATE post SET legend = ? OR body = ?, gifUrl = ? WHERE userID = ? AND postID = ?";
                 mysql.query(sqlModifyPost, [userID, postID], function (err, result) {
                     if (err) {
                         return res.status(500).json(err.message);

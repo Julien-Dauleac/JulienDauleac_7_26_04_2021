@@ -8,7 +8,7 @@
             <!-- Navigation -->
             <NavHead />
             <!-- Fin -->
-            <!-- Alert pour la création, la modification et la suppression des posts -->
+            <!-- Alert pour la création et la suppression des posts -->
             <Alert
                     v-if="alert.active && !alert.activeComment"
                     :alertType="alert.type"
@@ -26,20 +26,8 @@
                     :reaction="posts[indexLastPost].yourReaction"
             >
                 <!-- Fin -->
-                <!-- Bouton modification du post -->
-                <template v-slot:postModify v-if="posts[indexLastPost].yourPost > 0">
-                    <i
-                            class="fas fa-pencil-alt"
-                            aria-hidden="true"
-                            title="Modifier le post"
-                            role="button"
-                            v-on:click="modifyPost(posts[indexLastPost].postID)"
-                    ></i>
-                    <span class="sr-only">Modifier le post</span>
-                </template>
-                <!-- Fin -->
                 <!-- Bouton suppression du post -->
-                <template v-slot:postDelete v-if="role === admin || posts[indexLastPost].yourPost > 0">
+                <template v-slot:postDelete v-if="admin = true || posts[indexLastPost].yourPost > 0">
                     <i
                             class="fas fa-times"
                             aria-hidden="true"
@@ -75,8 +63,8 @@
                 <!-- Corps du post -->
                 <template v-slot:postLegend>{{ posts[indexLastPost].legend }}</template>
                 <!-- Fin -->
-                <!-- Création d'un commentaire -->
                 <template v-slot:createComment>
+                    <!-- Création d'un commentaire -->
                     <CreateComment
                             v-on:comment-sent="updateBody"
                             v-if="commentInputShow && commentID === posts[indexLastPost].postID"
@@ -87,13 +75,15 @@
                                 v-on:click.prevent="postComment(posts[indexLastPost].postID)"
                         >Publier</button>
                     </CreateComment>
+                    <!-- Fin -->
+                    <!-- Alert pour la création, la modification et la suppression des commentaires -->
                     <Alert
                             v-if="alert.active && alert.activeComment && (commentID === posts[indexLastPost].postID)"
                             :alertType="alert.type"
                             :alertMessage="alert.message"
                     />
+                    <!-- Fin -->
                 </template>
-                <!-- Fin -->
                 <!-- Footer post -->
                 <template v-slot:postDate>{{ posts[indexLastPost].dateCreation }}</template>
                 <template v-slot:postUp>{{ posts[indexLastPost].countUp }}</template>
@@ -124,7 +114,7 @@
                 </template>
                 <!-- Fin -->
                 <!-- Bouton de suppression commentaire -->
-                <template v-slot:commentDelete v-if="role === admin || comment.yourPost > 0">
+                <template v-slot:commentDelete v-if="admin = true || comment.yourPost > 0">
                     <i
                             class="fas fa-times"
                             aria-hidden="true"

@@ -44,7 +44,7 @@
                 </template>
                 <!-- Fin -->
                 <!-- Bouton de suppression du post -->
-                <template v-slot:postDelete v-if="role === admin || post.yourPost > 0">
+                <template v-slot:postDelete v-if="admin = true || post.yourPost > 0">
                     <i
                             class="fas fa-times"
                             aria-hidden="true"
@@ -57,7 +57,7 @@
                 <!-- Fin -->
                 <!-- Afficher les images (gif, jpg, jpeg, png) dans les posts -->
                 <template v-slot:postGif v-if="post.gifUrl.includes('.gif') || post.gifUrl.includes('.jpg')
-                || post.gifUrl.includes('.jpeg') || posts[indexLastPost].gifUrl.includes('.png')">
+                || post.gifUrl.includes('.jpeg') || post.gifUrl.includes('.png')">
                     <img :src="post.gifUrl" class="card-img gif-img" alt="Image du post" />
                 </template>
                 <!-- Fin -->
@@ -184,6 +184,9 @@
             },
             modifyPost(postID) {
                 // Modifie un post si c'est le notre //
+                const formData = new FormData();
+                formData.append("image", postID.image);
+                formData.append("legend", postID.legend);
                 this.$axios
                     .put("post/" + postID)
                     .then(() => {

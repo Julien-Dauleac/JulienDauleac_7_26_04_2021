@@ -3,6 +3,7 @@
 <template>
   <article class="mb-3">
     <slot name="commentDelete"></slot>
+    <slot name="commentModify"></slot>
     <div class="row no-gutters align-items-center">
       <div class="col-12">
         <div class="container">
