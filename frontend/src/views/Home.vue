@@ -44,7 +44,7 @@
                 </template>
                 <!-- Fin -->
                 <!-- Bouton de suppression du post -->
-                <template v-slot:postDelete v-if="admin = true || post.yourPost > 0">
+                <template v-slot:postDelete v-if="admin === true || post.yourPost > 0">
                     <i
                             class="fas fa-times"
                             aria-hidden="true"
@@ -138,6 +138,9 @@
             };
         },
         methods: {
+            admin(){
+
+            },
             alertConstant(type, message) {
                 // Crée une alerte //
                 const dataAlert = this.$data.alert;

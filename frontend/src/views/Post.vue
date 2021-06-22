@@ -27,7 +27,7 @@
             >
                 <!-- Fin -->
                 <!-- Bouton suppression du post -->
-                <template v-slot:postDelete v-if="admin = true || posts[indexLastPost].yourPost > 0">
+                <template v-slot:postDelete v-if="admin === true || posts[indexLastPost].yourPost > 0">
                     <i
                             class="fas fa-times"
                             aria-hidden="true"
@@ -76,7 +76,7 @@
                         >Publier</button>
                     </CreateComment>
                     <!-- Fin -->
-                    <!-- Alert pour la création, la modification et la suppression des commentaires -->
+                    <!-- Alert pour la création et la suppression des posts -->
                     <Alert
                             v-if="alert.active && alert.activeComment && (commentID === posts[indexLastPost].postID)"
                             :alertType="alert.type"
@@ -114,7 +114,7 @@
                 </template>
                 <!-- Fin -->
                 <!-- Bouton de suppression commentaire -->
-                <template v-slot:commentDelete v-if="admin = true || comment.yourPost > 0">
+                <template v-slot:commentDelete v-if="admin === true || comment.yourPost > 0">
                     <i
                             class="fas fa-times"
                             aria-hidden="true"
@@ -191,6 +191,9 @@
             },
         },
         methods: {
+            admin(){
+
+            },
             alertConstant(type, message) {
                 // Crée une alerte //
                 const dataAlert = this.$data.alert;
@@ -230,7 +233,7 @@
             modifyPost(postID) {
                 // Modifie un commentaire si c'est le notre //
                 this.$axios
-                    .modify("post/" + postID)
+                    .put("post/" + postID)
                     .then(() => {
                         if (postID === this.$route.params.id) {
                             this.$router.push({ name: "Home"});

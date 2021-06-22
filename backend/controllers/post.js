@@ -8,12 +8,14 @@ exports.getAllPosts = (req, res, next) => {
 
     let sqlGetPosts;
 
-    sqlGetPosts = `SELECT post.postID, post.userID, legend, gifUrl, DATE_FORMAT(post.dateCreation, 'le %e %M %Y à %kh%i') AS dateCreation, firstName, lastName, pseudo, avatarUrl,
+    sqlGetPosts = `SELECT post.postID, post.userID, legend, gifUrl, DATE_FORMAT(post.dateCreation, 'le %e %M %Y à %kh%i') 
+    AS dateCreation, firstName, lastName, pseudo, avatarUrl,
     COUNT(CASE WHEN reaction.reaction = 1 then 1 else null end) AS countUp,
     COUNT(CASE WHEN reaction.reaction = -1 then 1 else null end) AS countDown,
     SUM(CASE WHEN reaction.userID = ? AND reaction.reaction = 1 then 1 WHEN reaction.userID = ? AND reaction.reaction = -1 then -1 else 0 end) AS yourReaction,
     COUNT(CASE WHEN post.userID = ? then 1 else null end) AS yourPost
-    FROM post LEFT OUTER JOIN user ON post.userID = user.userID LEFT OUTER JOIN reaction ON post.postID = reaction.postID WHERE post.postIDComment IS NULL GROUP BY post.postID ORDER BY post.postID DESC`;
+    FROM post LEFT OUTER JOIN user ON post.userID = user.userID LEFT OUTER JOIN reaction ON post.postID = reaction.postID WHERE post.postIDComment IS NULL 
+    GROUP BY post.postID ORDER BY post.postID DESC`;
     mysql.query(sqlGetPosts, [userID, userID, userID], function (err, result) {
         if (err) {
             return res.status(500).json(err.message);
@@ -32,12 +34,14 @@ exports.getOnePost = (req, res, next) => {
 
     let sqlGetPost;
 
-    sqlGetPost = `SELECT post.postID, post.userID, legend, body, gifUrl, DATE_FORMAT(post.dateCreation, 'le %e %M %Y à %kh%i') AS dateCreation, firstName, lastName, pseudo, avatarUrl,
+    sqlGetPost = `SELECT post.postID, post.userID, legend, body, gifUrl, DATE_FORMAT(post.dateCreation, 'le %e %M %Y à %kh%i') 
+    AS dateCreation, firstName, lastName, pseudo, avatarUrl,
     COUNT(CASE WHEN reaction.reaction = 1 then 1 else null end) AS countUp,
     COUNT(CASE WHEN reaction.reaction = -1 then 1 else null end) AS countDown,
     SUM(CASE WHEN reaction.userID = ? AND reaction.reaction = 1 then 1 WHEN reaction.userID = ? AND reaction.reaction = -1 then -1 else 0 end) AS yourReaction,
     COUNT(CASE WHEN post.userID = ? then 1 else null end) AS yourPost
-    FROM post LEFT OUTER JOIN user ON post.userID = user.userID LEFT OUTER JOIN reaction ON post.postID = reaction.postID WHERE post.postID = ? OR post.postIDComment = ? GROUP BY post.postID ORDER BY post.postID DESC`;
+    FROM post LEFT OUTER JOIN user ON post.userID = user.userID LEFT OUTER JOIN reaction ON post.postID = reaction.postID WHERE post.postID = ? OR post.postIDComment = ?
+    GROUP BY post.postID ORDER BY post.postID DESC`;
     mysql.query(sqlGetPost, [userID, userID, userID, postID, postID], function (err, result) {
         if (err) {
             return res.status(500).json(err.message);

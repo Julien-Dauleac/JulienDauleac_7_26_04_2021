@@ -129,6 +129,8 @@
 <style scoped lang="scss">
   article {
     position: relative;
+    border-radius: 1em;
+    box-shadow: 1px 1px 5px;
     i {
       &.reactionActive {
         color: rgb(233, 68, 38);
