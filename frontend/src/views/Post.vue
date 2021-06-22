@@ -228,7 +228,7 @@
                     });
             },
             modifyPost(postID) {
-                // Modifie un post ou un commentaire si c'est le notre //
+                // Modifie un commentaire si c'est le notre //
                 this.$axios
                     .modify("post/" + postID)
                     .then(() => {
