@@ -17,6 +17,8 @@ router.post("/", auth, multer, postCtrl.createPost);
 router.put("/:id", auth, postCtrl.modifyPost);
 router.delete("/:id", auth, postCtrl.deletePost);
 router.post("/:id/comment", auth, postCtrl.createComment);
+router.put("/:id/comment", auth, postCtrl.modifyComment);
+router.delete("/:id/comment", auth, postCtrl.deleteComment);
 router.post("/:id/reaction", auth, postCtrl.reactPost);
 
 module.exports = router;

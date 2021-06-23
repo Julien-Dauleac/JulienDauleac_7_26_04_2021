@@ -139,7 +139,7 @@ exports.deletePost = (req, res, next) => {
     });
 };
 
-// Pour créer des commentaires //
+// Pour créer les commentaires //
 exports.createComment = (req, res, next) => {
     const postID = req.params.id;
     const userID = res.locals.userID;
@@ -155,6 +155,38 @@ exports.createComment = (req, res, next) => {
             return res.status(500).json(err.message);
         }
         res.status(201).json({ message: "Commentaire créé !" });
+    });
+};
+
+// Pour modifier les commentaires //
+exports.modifyComment = (req, res, next) => {
+    const postID = req.params.id;
+    const userID = res.locals.userID;
+
+    let sqlModifyComment;
+
+                sqlModifyComment = "UPDATE post SET legend = ? OR body = ?, gifUrl = ? WHERE userID = ? AND postID = ?";
+                mysql.query(sqlModifyComment, [userID, postID], function (err, result) {
+                    if (err) {
+                        return res.status(500).json(err.message);
+                    }
+                    res.status(200).json({message: "Commentaire modifié !"});
+                });
+};
+
+// Pour supprimer les commentaires //
+exports.deleteComment = (req, res, next) => {
+    const postID = req.params.id;
+    const userID = res.locals.userID;
+
+    let sqlDeleteComment;
+
+    sqlDeleteComment = "DELETE FROM post WHERE userID = ? AND postID = ?";
+    mysql.query(sqlDeleteComment, [userID, postID], function (err, result) {
+        if (err) {
+            return res.status(500).json(err.message);
+        }
+        res.status(200).json({message: "Commentaire supprimé !"});
     });
 };
 

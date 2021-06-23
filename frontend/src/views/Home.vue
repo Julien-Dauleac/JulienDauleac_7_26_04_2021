@@ -189,19 +189,17 @@
             },
             modifyPost(postID) {
                 // Modifie un post si c'est le notre //
-                const formData = new FormData();
-                formData.append("image", postID.image);
-                formData.append("legend", postID.legend);
+                const legend = this.post.legend;
+                const image = this.post.image;
+                let data;
+                data = {
+                    legend: legend,
+                    image: image,
+                };
                 this.$axios
-                    .put("post/" + postID)
+                    .put("post/" + postID, data)
                     .then(() => {
-                        const indexPost = this.$data.posts
-                            .map((e) => {
-                                return e.postID;
-                            })
-                            .indexOf(parseInt(postID));
-                        this.$data.posts.splice(indexPost, 1);
-
+                        this.$router.go();
                         this.alertActive("alert-warning", "Post modifié !");
                     })
                     .catch((e) => console.log(e));

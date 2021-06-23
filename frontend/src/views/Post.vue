@@ -108,7 +108,7 @@
                             aria-hidden="true"
                             title="Modifier le commentaire"
                             role="button"
-                            v-on:click="modifyPost(comment.postID)"
+                            v-on:click="modifyComment(comment.postID)"
                     ></i>
                     <span class="sr-only">Modifier le commentaire</span>
                 </template>
@@ -120,7 +120,7 @@
                             aria-hidden="true"
                             title="Supprimer le commentaire"
                             role="button"
-                            v-on:click="deletePost(comment.postID)"
+                            v-on:click="deleteComment(comment.postID)"
                     ></i>
                     <span class="sr-only">Supprimer le commentaire</span>
                 </template>
@@ -230,27 +230,8 @@
                         }
                     });
             },
-            modifyPost(postID) {
-                // Modifie un commentaire si c'est le notre //
-                this.$axios
-                    .put("post/" + postID)
-                    .then(() => {
-                        if (postID === this.$route.params.id) {
-                            this.$router.push({ name: "Home"});
-                        }
-                        const indexPost = this.$data.posts
-                            .map((e) => {
-                                return e.postID;
-                            })
-                            .indexOf(parseInt(postID));
-                        this.$data.posts.splice(indexPost, 1);
-
-                        this.alertActive("alert-warning", "Commentaire modifié !");
-                    })
-                    .catch((e) => console.log(e));
-            },
             deletePost(postID) {
-                // Supprime un post ou un commentaire si c'est le notre //
+                // Supprime un post si c'est le notre //
                 this.$axios
                     .delete("post/" + postID)
                     .then(() => {
@@ -308,6 +289,44 @@
                             console.log(e);
                         });
                 }
+            },
+            deleteComment(postID) {
+                // Supprime un commentaire si c'est le notre //
+                this.$axios
+                    .delete(`post/${postID}/comment`)
+                    .then(() => {
+                        if (postID === this.$route.params.id) {
+                            this.$router.push({ name: "Home"});
+                        }
+                        const indexPost = this.$data.posts
+                            .map((e) => {
+                                return e.postID;
+                            })
+                            .indexOf(parseInt(postID));
+                        this.$data.posts.splice(indexPost, 1);
+
+                        this.alertActive("alert-warning", "Commentaire supprimé !");
+                    })
+                    .catch((e) => console.log(e));
+            },
+            modifyComment(postID) {
+                // Modifie un commentaire si c'est le notre //
+                this.$axios
+                    .put(`post/${postID}/comment`)
+                    .then(() => {
+                        if (postID === this.$route.params.id) {
+                            this.$router.push({ name: "Home"});
+                        }
+                        const indexPost = this.$data.posts
+                            .map((e) => {
+                                return e.postID;
+                            })
+                            .indexOf(parseInt(postID));
+                        this.$data.posts.splice(indexPost, 1);
+
+                        this.alertActive("alert-warning", "Commentaire modifié !");
+                    })
+                    .catch((e) => console.log(e));
             },
         },
         created() {
