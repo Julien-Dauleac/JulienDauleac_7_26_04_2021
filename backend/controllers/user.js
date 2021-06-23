@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt'); // Pour crypter le mot de passe //
 const jwt = require("jsonwebtoken"); // Génère un token sécurisé //
 const fs = require("fs"); // Permet de gérer les fichiers stockés //
 
-// Inscription de l'utilisateur et hashage du mot de passe //
+// Inscription de l'utilisateur et hash du mot de passe //
 exports.signup = (req, res, next) => {
 
     bcrypt.hash(req.body.password, 10)
@@ -66,9 +66,9 @@ exports.login = (req, res, next) => {
 // Pour supprimer un utilisateur //
 exports.delete = (req, res, next) => {
     const password = req.body.password;
-    let passwordHashed;
     const userID = res.locals.userID;
 
+    let passwordHashed;
     let sqlFindUser;
     let sqlDeleteUser;
 
@@ -148,7 +148,7 @@ exports.modify = (req, res, next) => {
     let sqlChangePassword;
     let values;
 
-    if (req.file) { // Si le changement concerne l'avatar on update directement //
+    if (req.file) { // Si le changement concerne l'avatar //
         const avatarUrl = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`;
 
         sqlFindUser = "SELECT avatarUrl FROM user WHERE userID = ?";
@@ -178,7 +178,7 @@ exports.modify = (req, res, next) => {
             }
         });
 
-    } else { // Si le changement concerne les infos de l'user on demande le mots de passe //
+    } else { // On demande confirmation du mots de passe //
         sqlFindUser = "SELECT password FROM user WHERE userID = ?";
         mysql.query(sqlFindUser, [userID], function (err, result) {
             if (err) {

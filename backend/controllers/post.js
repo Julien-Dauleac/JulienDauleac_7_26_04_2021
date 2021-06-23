@@ -59,7 +59,7 @@ exports.createPost = (req, res, next) => {
     const legend = req.body.legend;
     let gifUrl = "";
     if(req.file){
-         gifUrl = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`;
+        gifUrl = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`;
     }
     let sqlCreatePost;
     let values;
@@ -165,13 +165,13 @@ exports.modifyComment = (req, res, next) => {
 
     let sqlModifyComment;
 
-                sqlModifyComment = "UPDATE post SET legend = ? OR body = ?, gifUrl = ? WHERE userID = ? AND postID = ?";
-                mysql.query(sqlModifyComment, [userID, postID], function (err, result) {
-                    if (err) {
-                        return res.status(500).json(err.message);
-                    }
-                    res.status(200).json({message: "Commentaire modifié !"});
-                });
+    sqlModifyComment = "UPDATE post SET legend = ? OR body = ?, gifUrl = ? WHERE userID = ? AND postID = ?";
+    mysql.query(sqlModifyComment, [userID, postID], function (err, result) {
+        if (err) {
+            return res.status(500).json(err.message);
+        }
+        res.status(200).json({message: "Commentaire modifié !"});
+    });
 };
 
 // Pour supprimer les commentaires //
