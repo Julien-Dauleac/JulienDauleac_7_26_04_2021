@@ -25,7 +25,7 @@
                                 name="image"
                                 type="file"
                                 class="custom-file-input"
-                                accept="image/*"
+                                accept="image"
                                 v-on:change="updateAvatar($event)"
                         />
                         <label class="custom-file-label" for="image">Choisir un avatar</label>
@@ -191,12 +191,6 @@
                     .catch((e) => {
                         if (e.response.status === 401) {
                             this.alertConstant("alert-danger mt-5", "Veuillez vous connecter");
-                        }
-                        if (e.response.status === 400) {
-                            this.alertConstant("alert-warning mt-5", "Utilisateur non trouvé");
-                        }
-                        if (e.response.status === 500) {
-                            this.alertConstant("alert-warning mt-5", "Erreur serveur");
                         }
                     });
             },
