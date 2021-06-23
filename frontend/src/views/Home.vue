@@ -3,7 +3,7 @@
 <template>
     <div>
         <!-- Alert si l'user est non connecté -->
-        <Alert v-if="!connected" :alertType="alert.type" :alertMessage="alert.message" />
+        <Alert :alertMessage="alert.message" :alertType="alert.type" v-if="!connected" />
         <div v-else>
             <!-- Navigation -->
             <NavHead />
@@ -13,64 +13,64 @@
             <!-- Fin -->
             <!-- Alert pour la création, la modification et la suppression des posts -->
             <Alert
-                    v-if="alert.active && !alert.activeComment"
-                    :alertType="alert.type"
                     :alertMessage="alert.message"
+                    :alertType="alert.type"
+                    v-if="alert.active && !alert.activeComment"
             />
             <!-- Fin -->
             <!-- Post -->
             <BlockPost
-                    v-for="post in posts"
-                    :key="post.postID"
                     :idPost="post.postID"
                     :idUser="post.userID"
+                    :key="post.postID"
+                    :reaction="post.yourReaction"
+                    v-for="post in posts"
                     v-on:d-comment-input="dCommentInput(post.postID)"
                     v-on:reaction-down="sendReaction(post.postID, -1)"
-                    v-on:reaction-up="sendReaction(post.postID, 1)"
                     v-on:reaction-none="sendReaction(post.postID, 0)"
-                    :reaction="post.yourReaction"
+                    v-on:reaction-up="sendReaction(post.postID, 1)"
             >
                 <!-- Fin -->
                 <!-- Bouton de modification du post -->
-                <template v-slot:postModify v-if="post.yourPost > 0">
+                <template v-if="post.yourPost > 0" v-slot:postModify>
                     <i
-                            class="fas fa-pencil-alt"
                             aria-hidden="true"
-                            title="Modifier le post"
+                            class="fas fa-pencil-alt"
                             role="button"
+                            title="Modifier le post"
                             v-on:click="modifyPost(post.postID)"
                     ></i>
                     <span class="sr-only">Modifier le post</span>
                 </template>
                 <!-- Fin -->
                 <!-- Bouton de suppression du post -->
-                <template v-slot:postDelete v-if="admin === true || post.yourPost > 0">
+                <template v-if="userIsAdmin === true || post.yourPost > 0" v-slot:postDelete>
                     <i
-                            class="fas fa-times"
                             aria-hidden="true"
-                            title="Supprimer le post"
+                            class="fas fa-times"
                             role="button"
+                            title="Supprimer le post"
                             v-on:click="deletePost(post.postID)"
                     ></i>
                     <span class="sr-only">Supprimer le post</span>
                 </template>
                 <!-- Fin -->
                 <!-- Afficher les images (gif, jpg, jpeg, png) dans les posts -->
-                <template v-slot:postGif v-if="post.gifUrl.includes('.gif') || post.gifUrl.includes('.jpg')
-                || post.gifUrl.includes('.jpeg') || post.gifUrl.includes('.png')">
-                    <img :src="post.gifUrl" class="card-img gif-img" alt="Image du post" />
+                <template v-if="post.gifUrl.includes('.gif') || post.gifUrl.includes('.jpg')
+                || post.gifUrl.includes('.jpeg') || post.gifUrl.includes('.png')" v-slot:postGif>
+                    <img :src="post.gifUrl" alt="Image du post" class="card-img gif-img" />
                 </template>
                 <!-- Fin -->
                 <!-- User -->
                 <template v-slot:userAvatar>
                     <img
                             :src="post.avatarUrl"
-                            class="card-img avatar rounded-circle mr-1"
                             alt="Avatar de l'utilisateur"
+                            class="card-img avatar rounded-circle mr-1"
                     />
                 </template>
                 <template v-slot:userName>{{ post.firstName + ' ' + post.lastName }}</template>
-                <template v-slot:userPseudo v-if="post.pseudo !== null">{{ '@' + post.pseudo }}</template>
+                <template v-if="post.pseudo !== null" v-slot:userPseudo>{{ '@' + post.pseudo }}</template>
                 <!-- Fin -->
                 <!-- Corps du post -->
                 <template v-slot:postLegend>{{ post.legend }}</template>
@@ -78,8 +78,8 @@
                 <template v-slot:createComment>
                     <!-- Création d'un commentaire -->
                     <CreateComment
-                            v-on:comment-sent="updateBody"
                             v-if="commentInputShow && commentID === post.postID"
+                            v-on:comment-sent="updateBody"
                     >
                         <button
                                 class="btn btn-light form-control text-center"
@@ -90,9 +90,9 @@
                     <!-- Fin -->
                     <!-- Alert pour la création d'un commentaire -->
                     <Alert
-                            v-if="alert.active && alert.activeComment && (commentID === post.postID)"
-                            :alertType="alert.type"
                             :alertMessage="alert.message"
+                            :alertType="alert.type"
+                            v-if="alert.active && alert.activeComment && (commentID === post.postID)"
                     />
                     <!-- Fin -->
                 </template>
@@ -135,12 +135,10 @@
                 body: "", // Stock le corps du commentaire //
                 commentInputShow: false, // Défini si l'input de la création de commentaire doit être montré //
                 commentID: "", // Stock l'id du post pour lequel le commentaire sera envoyé //
+                userIsAdmin: false,
             };
         },
         methods: {
-            admin(){
-
-            },
             alertConstant(type, message) {
                 // Crée une alerte //
                 const dataAlert = this.$data.alert;
@@ -160,6 +158,21 @@
                     dataAlert.type = "";
                     dataAlert.message = "";
                 }, 4000);
+            },
+            getUserAdmin() {
+                // Récupère les infos de l'utilisateur //
+                this.$axios
+                    .get("user/admin")
+                    .then((data) => {
+                        if (data.admin === true){
+                            this.userIsAdmin = true;
+                        }
+                    })
+                    .catch((e) => {
+                        if (e.response.status === 401) {
+                            this.alertConstant("alert-danger mt-5", "Veuillez vous connecter");
+                        }
+                    });
             },
             get() {
                 // Récupère les posts //
@@ -261,18 +274,16 @@
                 }
             },
         },
-        created() {
-            this.get();
-        },
         mounted() {
             // Récupère les posts et défini le titre //
+            this.getUserAdmin();
             this.get();
             document.title = "Fil d'actualité | Groupomania";
         },
     };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
     .avatar {
         width: 2em;
         height: 2em;

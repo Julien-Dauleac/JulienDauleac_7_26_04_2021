@@ -16,5 +16,6 @@ router.post("/signup", userCtrl.signup);
 router.delete("/delete", auth, userCtrl.delete);
 router.get("/:id/profile", auth, userCtrl.profile);
 router.put("/modify", auth, multer, userCtrl.modify);
+router.get("/admin", auth, userCtrl.admin);
 
 module.exports = router;

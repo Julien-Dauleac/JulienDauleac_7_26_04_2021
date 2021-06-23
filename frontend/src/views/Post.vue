@@ -27,7 +27,7 @@
             >
                 <!-- Fin -->
                 <!-- Bouton suppression du post -->
-                <template v-slot:postDelete v-if="admin === true || posts[indexLastPost].yourPost > 0">
+                <template v-slot:postDelete v-if="userIsAdmin === true || posts[indexLastPost].yourPost > 0">
                     <i
                             class="fas fa-times"
                             aria-hidden="true"
@@ -114,7 +114,7 @@
                 </template>
                 <!-- Fin -->
                 <!-- Bouton de suppression commentaire -->
-                <template v-slot:commentDelete v-if="admin === true || comment.yourPost > 0">
+                <template v-slot:commentDelete v-if="userIsAdmin === true || comment.yourPost > 0">
                     <i
                             class="fas fa-times"
                             aria-hidden="true"
@@ -177,6 +177,7 @@
                 body: "", // Stock le corps du commentaire //
                 commentInputShow: false, // Défini si l'input de la création de commentaire doit être montré //
                 commentID: "", // Stock l'id du post pour lequel le commentaire sera envoyé //
+                userIsAdmin: false,
             };
         },
         computed: {
@@ -190,8 +191,6 @@
             },
         },
         methods: {
-            admin(){
-            },
             alertConstant(type, message) {
                 // Crée une alerte //
                 const dataAlert = this.$data.alert;
@@ -211,6 +210,21 @@
                     dataAlert.type = "";
                     dataAlert.message = "";
                 }, 4000);
+            },
+            getUserAdmin() {
+                // Récupère les infos de l'utilisateur //
+                this.$axios
+                    .get("user/admin")
+                    .then((data) => {
+                        if (data.admin === true){
+                            this.userIsAdmin = true;
+                        }
+                    })
+                    .catch((e) => {
+                        if (e.response.status === 401) {
+                            this.alertConstant("alert-danger mt-5", "Veuillez vous connecter");
+                        }
+                    });
             },
             get() {
                 // Récupère le post et ses commentaires //
@@ -324,11 +338,9 @@
                     .catch((e) => console.log(e));
             },
         },
-        created() {
-            this.get();
-        },
         mounted() {
             // Récupère le post et ses commentaires et défini le titre //
+            this.getUserAdmin();
             this.get();
             document.title = "Post | Groupomania";
         },
