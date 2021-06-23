@@ -155,7 +155,6 @@
     import Alert from "../components/Alert.vue";
     import CreateComment from "../components/CreateComment.vue";
     import Comment from "../components/Comment.vue";
-
     export default {
         name: "Post",
         components: {
@@ -192,7 +191,6 @@
         },
         methods: {
             admin(){
-
             },
             alertConstant(type, message) {
                 // Crée une alerte //
@@ -244,7 +242,6 @@
                             })
                             .indexOf(parseInt(postID));
                         this.$data.posts.splice(indexPost, 1);
-
                         this.alertActive("alert-warning", "Commentaire supprimé !");
                     })
                     .catch((e) => console.log(e));
@@ -304,7 +301,6 @@
                             })
                             .indexOf(parseInt(postID));
                         this.$data.posts.splice(indexPost, 1);
-
                         this.alertActive("alert-warning", "Commentaire supprimé !");
                     })
                     .catch((e) => console.log(e));
@@ -323,7 +319,6 @@
                             })
                             .indexOf(parseInt(postID));
                         this.$data.posts.splice(indexPost, 1);
-
                         this.alertActive("alert-warning", "Commentaire modifié !");
                     })
                     .catch((e) => console.log(e));
