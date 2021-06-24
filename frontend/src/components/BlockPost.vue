@@ -144,9 +144,7 @@
       },
       goToPost(idPost) {
         // Route dynamique menant au post spécifique et ses commentaires //
-        if (idPost !== undefined) {
-          this.$router.push({ name: "Post", params: { id: idPost } });
-        }
+        this.$router.push({ name: "Post", params: { id: idPost } });
       },
       goToProfile(idUser) {
         // Route dynamique menant au profil de l'utilisateur ayant crée le commentaire //
