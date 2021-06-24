@@ -156,7 +156,6 @@ exports.modify = (req, res, next) => {
             if (err) {
                 return res.status(500).json(err.message);
             }
-
             const filename = result[0].avatarUrl.split("/images/")[1];
             sqlModifyUser = "UPDATE user SET avatarUrl = ? WHERE userID = ?";
             if (filename !== "avatarIcon.jpg") {
@@ -165,7 +164,7 @@ exports.modify = (req, res, next) => {
                         if (err) {
                             return res.status(500).json(err.message);
                         }
-                        return res.status(200).json({ message: "Utilisateur modifié !" });
+                        return res.status(200).json({ message: "Avatar modifié !" });
                     });
                 });
             } else {

@@ -96,7 +96,7 @@ exports.modifyPost = (req, res, next) => {
                 });
             });
         } else {
-            return res.status(400).json({ message: "Ce poste n'existe pas"})
+            return res.status(400).json({ message: "Ce post n'existe pas"})
         }
         if (err) {
             return res.status(500).json(err.message);
@@ -129,7 +129,7 @@ exports.deletePost = (req, res, next) => {
                 });
             });
         } else {
-            return res.status(400).json({ message: "Ce poste n'existe pas"})
+            return res.status(400).json({ message: "Ce post n'existe pas"})
         }
         if (err) {
             return res.status(500).json(err.message);

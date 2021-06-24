@@ -234,9 +234,6 @@
                         this.posts = data.data;
                     })
                     .catch((e) => {
-                        if (e.response.status === 401) {
-                            this.alertConstant("alert-danger mt-5", "Veuillez vous connecter");
-                        }
                         if (e.response.status === 400) {
                             this.alertConstant("alert-danger mt-5", "Aucun post à afficher");
                         }

@@ -5,7 +5,7 @@ import VueRouter from 'vue-router';
 import Login from '../views/Login.vue';
 import Signup from '../views/Signup.vue';
 import Home from '../views/Home.vue';
-import Poste from '../views/Post.vue';
+import Post from '../views/Post.vue';
 import Profile from '../views/Profile.vue';
 
 Vue.use(VueRouter);
@@ -27,9 +27,9 @@ const routes = [
     component: Home
   },
   {
-    path: '/Poste/:id',
-    name: 'Poste',
-    component: Poste
+    path: '/Post/:id',
+    name: 'Post',
+    component: Post
   },
   {
     path: '/Profile/:id',
