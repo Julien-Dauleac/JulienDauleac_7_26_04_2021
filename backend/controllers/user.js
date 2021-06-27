@@ -35,7 +35,7 @@ exports.login = (req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;
 
-    const sqlFindUser = "SELECT userID, password FROM user WHERE email = ?";
+    const sqlFindUser = "SELECT userID, password, admin FROM user WHERE email = ?";
 // Recherche de l'utilisateur dans la base de données //
     mysql.query(sqlFindUser, [email], function (err, result) {
         if (err) {
@@ -56,7 +56,8 @@ exports.login = (req, res, next) => {
                         { userID: result[0].userID },
                         process.env.TOKEN,
                         { expiresIn: "24h" }
-                    )
+                    ),
+                    admin: result[0].admin
                 });
             })
             .catch(e => res.status(500).json(e));
@@ -229,21 +230,4 @@ exports.modify = (req, res, next) => {
                 .catch(e => res.status(500).json(e));
         });
     }
-};
-
-exports.admin = (req, res, next) => {
-    const userID = res.locals.userID;
-
-    let sqlFindUser;
-
-    sqlFindUser = "SELECT admin FROM user WHERE userID = ?";
-    mysql.query(sqlFindUser, [userID], function (err, result) {
-        if (err) {
-            return res.status(500).json(err.message);
-        }
-        if (result.length === 0) {
-            return res.status(401).json({ error: "Utilisateur non trouvé !" });
-        }
-        return res.status(200).json(result);
-    });
 };

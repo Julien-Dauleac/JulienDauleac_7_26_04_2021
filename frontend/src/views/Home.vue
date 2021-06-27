@@ -31,18 +31,6 @@
                     v-on:reaction-up="sendReaction(post.postID, 1)"
             >
                 <!-- Fin -->
-                <!-- Bouton de modification du post -->
-                <template v-if="post.yourPost > 0" v-slot:postModify>
-                    <i
-                            aria-hidden="true"
-                            class="fas fa-pencil-alt"
-                            role="button"
-                            title="Modifier le post"
-                            v-on:click="modifyPost(post.postID)"
-                    ></i>
-                    <span class="sr-only">Modifier le post</span>
-                </template>
-                <!-- Fin -->
                 <!-- Bouton de suppression du post -->
                 <template v-if="userIsAdmin === true || post.yourPost > 0" v-slot:postDelete>
                     <i
@@ -56,8 +44,7 @@
                 </template>
                 <!-- Fin -->
                 <!-- Afficher les images (gif, jpg, jpeg, png) dans les posts -->
-                <template v-if="post.gifUrl.includes('.gif') || post.gifUrl.includes('.jpg')
-                || post.gifUrl.includes('.jpeg') || post.gifUrl.includes('.png')" v-slot:postGif>
+                <template v-if="post.gifUrl !== undefined && post.gifUrl.length > 0" v-slot:postGif>
                     <img :src="post.gifUrl" alt="Image du post" class="card-img gif-img" />
                 </template>
                 <!-- Fin -->
@@ -159,21 +146,6 @@
                     dataAlert.message = "";
                 }, 4000);
             },
-            getUserAdmin() {
-                // Récupère les infos de l'utilisateur //
-                this.$axios
-                    .get("user/admin")
-                    .then((data) => {
-                        if (data.admin === true){
-                            this.userIsAdmin = true;
-                        }
-                    })
-                    .catch((e) => {
-                        if (e.response.status === 401) {
-                            this.alertConstant("alert-danger mt-5", "Veuillez vous connecter");
-                        }
-                    });
-            },
             get() {
                 // Récupère les posts //
                 this.$axios
@@ -197,23 +169,6 @@
                     .then(() => {
                         this.get();
                         this.alertActive("alert-success", "Post publié !");
-                    })
-                    .catch((e) => console.log(e));
-            },
-            modifyPost(postID) {
-                // Modifie un post si c'est le notre //
-                const legend = this.post.legend;
-                const image = this.post.image;
-                let data;
-                data = {
-                    legend: legend,
-                    image: image,
-                };
-                this.$axios
-                    .put("post/" + postID, data)
-                    .then(() => {
-                        this.$router.go();
-                        this.alertActive("alert-warning", "Post modifié !");
                     })
                     .catch((e) => console.log(e));
             },
@@ -276,7 +231,6 @@
         },
         mounted() {
             // Récupère les posts et défini le titre //
-            this.getUserAdmin();
             this.get();
             document.title = "Fil d'actualité | Groupomania";
         },
@@ -296,15 +250,6 @@
         z-index: 1;
         &:hover {
             color: rgb(233, 68, 38);
-        }
-    }
-    .fa-pencil-alt {
-        position: absolute;
-        left: 3em;
-        top: 1em;
-        z-index: 1;
-        &:hover {
-            color: rgb(38, 64, 233);
         }
     }
 </style>

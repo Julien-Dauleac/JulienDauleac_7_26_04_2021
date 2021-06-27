@@ -24,6 +24,7 @@
                         <input
                                 name="image"
                                 type="file"
+                                id="avatar"
                                 class="custom-file-input"
                                 accept="image"
                                 v-on:change="updateAvatar($event)"
@@ -74,6 +75,8 @@
                             pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                             aria-label="Nouveau mot de passe"
                     />
+                    <template
+                >Veuillez entrer votre mot de passe pour confirmer la ou les modification</template>
                     <div class="input-group">
                         <input
                                 class="form-control text-center"
@@ -196,45 +199,39 @@
             },
             updateAvatar(event) {
                 // Update son avatar //
-                const image = event.target.files[0];
-                const formData = new FormData();
-                formData.append("images", image);
-                this.$axios
-                    .put("user/modify", formData)
-                    .then(() => {
-                        this.getUser();
-                    })
-                    .catch((e) => {
-                        console.log(e);
-                    });
+                this.user.image = event.target.files[0];
+                console.log(event.target.files);
             },
             updateProfile() {
                 // Update les autres informations //
-                const email = this.user.email;
-                const pseudo = this.user.pseudo;
-                const bio = this.user.bio;
-                const password = document.getElementById("password").value;
-                const newPassword = document.getElementById("newPassword").value;
+                const formData = new FormData();
+                formData.append("email", data.email);
+                formData.append("pseudo", data.pseudo);
+                formData.append("image", data.image);
+                formData.append("bio", data.bio);
+                formData.append("password", data.password);
+                formData.append("newPassword", data.newPassword);
                 let data;
-
-                if (newPassword === "") {
+                if (data.newPassword === "") {
                     data = {
-                        email: email,
-                        pseudo: pseudo,
-                        bio: bio,
-                        password: password,
+                        email: data.email,
+                        pseudo: data.pseudo,
+                        bio: data.bio,
+                        password: data.password,
+                        image: data.image,
                     };
                 } else {
                     data = {
-                        email: email,
-                        pseudo: pseudo,
-                        bio: bio,
-                        password: password,
-                        newPassword: newPassword,
+                        email: data.email,
+                        pseudo: data.pseudo,
+                        bio: data.bio,
+                        password: data.password,
+                        newPassword: data.newPassword,
+                        image: data.image,
                     };
                 }
                 this.$axios
-                    .put("user/modify", data)
+                    .put("user/modify", formData)
                     .then(() => {
                         this.$router.go();
                     })

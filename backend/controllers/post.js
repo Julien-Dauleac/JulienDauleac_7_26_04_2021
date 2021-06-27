@@ -74,38 +74,6 @@ exports.createPost = (req, res, next) => {
     });
 };
 
-// Pour modifier les messages //
-exports.modifyPost = (req, res, next) => {
-    const postID = req.params.id;
-    const userID = res.locals.userID;
-
-    let sqlModifyPost;
-    let sqlSelectPost;
-
-    sqlSelectPost = "SELECT gifUrl FROM post WHERE postID = ?";
-    mysql.query(sqlSelectPost, [postID], function (err, result) {
-        if (result.length > 0) {
-            const filename = result[0].gifUrl.split("/images/")[1];
-            fs.unlink(`images/${filename}`, () => { // On supprime le fichier image en amont //
-                sqlModifyPost = "UPDATE post SET legend = ? OR body = ?, gifUrl = ? WHERE userID = ? AND postID = ?";
-                mysql.query(sqlModifyPost, [userID, postID], function (err, result) {
-                    if (err) {
-                        return res.status(500).json(err.message);
-                    }
-                    res.status(200).json({ message: "Post modifié !" });
-                });
-            });
-        } else {
-            return res.status(400).json({ message: "Ce post n'existe pas"})
-        }
-        if (err) {
-            return res.status(500).json(err.message);
-        }
-
-
-    });
-};
-
 // Pour supprimer les messages //
 exports.deletePost = (req, res, next) => {
     const postID = req.params.id;
@@ -113,8 +81,12 @@ exports.deletePost = (req, res, next) => {
 
     let sqlDeletePost;
     let sqlSelectPost;
-
-    sqlSelectPost = "SELECT gifUrl FROM post WHERE postID = ? AND userID = ?";
+    if (res.locals.admin) {
+        sqlSelectPost = "SELECT gifUrl FROM post WHERE postID = ?";
+    }
+    else{
+        sqlSelectPost = "SELECT gifUrl FROM post WHERE postID = ? AND userID = ?";
+    }
     mysql.query(sqlSelectPost, [postID, userID], function (err, result) {
         console.log(result);
         if (result.length > 0) {
@@ -155,22 +127,6 @@ exports.createComment = (req, res, next) => {
             return res.status(500).json(err.message);
         }
         res.status(201).json({ message: "Commentaire créé !" });
-    });
-};
-
-// Pour modifier les commentaires //
-exports.modifyComment = (req, res, next) => {
-    const postID = req.params.id;
-    const userID = res.locals.userID;
-
-    let sqlModifyComment;
-
-    sqlModifyComment = "UPDATE post SET legend = ? OR body = ?, gifUrl = ? WHERE userID = ? AND postID = ?";
-    mysql.query(sqlModifyComment, [userID, postID], function (err, result) {
-        if (err) {
-            return res.status(500).json(err.message);
-        }
-        res.status(200).json({message: "Commentaire modifié !"});
     });
 };
 

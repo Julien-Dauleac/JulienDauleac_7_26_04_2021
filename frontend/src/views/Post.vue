@@ -39,8 +39,7 @@
                 </template>
                 <!-- Fin -->
                 <!-- Afficher les images (gif, jpg, jpeg, png) dans les posts -->
-                <template v-slot:postGif v-if="posts[indexLastPost].gifUrl.includes('.gif') || posts[indexLastPost].gifUrl.includes('.jpg')
-                || posts[indexLastPost].gifUrl.includes('.jpeg') || posts[indexLastPost].gifUrl.includes('.png')">
+                <template v-slot:postGif v-if="posts[indexLastPost].gifUrl !== undefined && posts[indexLastPost].gifUrl.length > 0">
                     <img :src="posts[indexLastPost].gifUrl" class="card-img gif-img" alt="Image du post" />
                 </template>
                 <!-- Fin -->
@@ -100,18 +99,6 @@
                     v-on:reaction-none="sendReaction(comment.postID, 0)"
                     :reaction="comment.yourReaction"
             >
-                <!-- Fin -->
-                <!-- Bouton de modification commentaire -->
-                <template v-slot:commentModify v-if="comment.yourPost > 0">
-                    <i
-                            class="fas fa-pencil-alt"
-                            aria-hidden="true"
-                            title="Modifier le commentaire"
-                            role="button"
-                            v-on:click="modifyComment(comment.postID)"
-                    ></i>
-                    <span class="sr-only">Modifier le commentaire</span>
-                </template>
                 <!-- Fin -->
                 <!-- Bouton de suppression commentaire -->
                 <template v-slot:commentDelete v-if="userIsAdmin === true || comment.yourPost > 0">
@@ -211,21 +198,6 @@
                     dataAlert.message = "";
                 }, 4000);
             },
-            getUserAdmin() {
-                // Récupère les infos de l'utilisateur //
-                this.$axios
-                    .get("user/admin")
-                    .then((data) => {
-                        if (data.admin === true){
-                            this.userIsAdmin = true;
-                        }
-                    })
-                    .catch((e) => {
-                        if (e.response.status === 401) {
-                            this.alertConstant("alert-danger mt-5", "Veuillez vous connecter");
-                        }
-                    });
-            },
             get() {
                 // Récupère le post et ses commentaires //
                 this.$axios
@@ -316,28 +288,9 @@
                     })
                     .catch((e) => console.log(e));
             },
-            modifyComment(postID) {
-                // Modifie un commentaire si c'est le notre //
-                this.$axios
-                    .put(`post/${postID}/comment`)
-                    .then(() => {
-                        if (postID === this.$route.params.id) {
-                            this.$router.push({ name: "Home"});
-                        }
-                        const indexPost = this.$data.posts
-                            .map((e) => {
-                                return e.postID;
-                            })
-                            .indexOf(parseInt(postID));
-                        this.$data.posts.splice(indexPost, 1);
-                        this.alertActive("alert-warning", "Commentaire modifié !");
-                    })
-                    .catch((e) => console.log(e));
-            },
         },
         mounted() {
             // Récupère le post et ses commentaires et défini le titre //
-            this.getUserAdmin();
             this.get();
             document.title = "Post | Groupomania";
         },
@@ -358,15 +311,6 @@
         z-index: 1;
         &:hover {
             color: rgb(233, 68, 38);
-        }
-    }
-    .fa-pencil-alt {
-        position: absolute;
-        left: 3em;
-        top: 1em;
-        z-index: 1;
-        &:hover {
-            color: rgb(38, 64, 233);
         }
     }
 </style>
