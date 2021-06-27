@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `groupomania` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `groupomania`;
 -- MySQL dump 10.13  Distrib 8.0.25, for Win64 (x86_64)
 --
 -- Host: localhost    Database: groupomania
@@ -25,19 +23,19 @@ DROP TABLE IF EXISTS `post`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `post` (
-  `postID` mediumint unsigned NOT NULL AUTO_INCREMENT,
-  `userID` smallint unsigned DEFAULT NULL,
-  `legend` varchar(180) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `gifUrl` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `postIDComment` mediumint unsigned DEFAULT NULL,
-  `body` text COLLATE utf8mb4_unicode_ci,
-  `dateCreation` datetime NOT NULL,
-  PRIMARY KEY (`postID`),
-  KEY `fk_post_userID` (`userID`),
-  KEY `fk_commentID` (`postIDComment`),
-  CONSTRAINT `fk_commentID` FOREIGN KEY (`postIDComment`) REFERENCES `post` (`postID`) ON DELETE CASCADE,
-  CONSTRAINT `fk_post_userID` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+                        `postID` mediumint unsigned NOT NULL AUTO_INCREMENT,
+                        `userID` smallint unsigned DEFAULT NULL,
+                        `legend` varchar(180) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+                        `gifUrl` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+                        `postIDComment` mediumint unsigned DEFAULT NULL,
+                        `body` text COLLATE utf8mb4_unicode_ci,
+                        `dateCreation` datetime NOT NULL,
+                        PRIMARY KEY (`postID`),
+                        KEY `fk_commentID` (`postIDComment`),
+                        KEY `fk_post_userID` (`userID`),
+                        CONSTRAINT `fk_commentID` FOREIGN KEY (`postIDComment`) REFERENCES `post` (`postID`) ON DELETE CASCADE,
+                        CONSTRAINT `fk_post_userID` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46,8 +44,8 @@ CREATE TABLE `post` (
 
 LOCK TABLES `post` WRITE;
 /*!40000 ALTER TABLE `post` DISABLE KEYS */;
-INSERT INTO `post` VALUES (21,4,'Bonjour !','http://localhost:3000/images/Ketchup_Heinz.jpg1623845613309.jpeg',NULL,NULL,'2021-06-16 14:13:33'),
-                          (22,4,NULL,NULL,21,'Salut !','2021-06-16 14:13:46');
+INSERT INTO `post` VALUES (54,19,'Hello','http://localhost:3000/images/Mayonnaise_de_Dijon.jpg1624368034796.jpeg',NULL,NULL,'2021-06-22 15:20:34'),
+                          (65,4,'Coucou','',NULL,NULL,'2021-06-26 11:13:15');
 /*!40000 ALTER TABLE `post` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -60,9 +58,7 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-06-17 10:34:04
-CREATE DATABASE  IF NOT EXISTS `groupomania` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `groupomania`;
+-- Dump completed on 2021-06-27  9:21:16
 -- MySQL dump 10.13  Distrib 8.0.25, for Win64 (x86_64)
 --
 -- Host: localhost    Database: groupomania
@@ -88,14 +84,14 @@ DROP TABLE IF EXISTS `reaction`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `reaction` (
-  `userID` smallint unsigned NOT NULL,
-  `postID` mediumint unsigned NOT NULL,
-  `reaction` tinyint DEFAULT NULL,
-  `dateCreation` datetime NOT NULL,
-  PRIMARY KEY (`userID`,`postID`),
-  KEY `fk_postID` (`postID`),
-  CONSTRAINT `fk_postID` FOREIGN KEY (`postID`) REFERENCES `post` (`postID`) ON DELETE CASCADE,
-  CONSTRAINT `fk_reaction_userID` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`) ON DELETE CASCADE
+                            `userID` smallint unsigned NOT NULL,
+                            `postID` mediumint unsigned NOT NULL,
+                            `reaction` tinyint DEFAULT NULL,
+                            `dateCreation` datetime NOT NULL,
+                            PRIMARY KEY (`userID`,`postID`),
+                            KEY `fk_postID` (`postID`),
+                            CONSTRAINT `fk_postID` FOREIGN KEY (`postID`) REFERENCES `post` (`postID`) ON DELETE CASCADE,
+                            CONSTRAINT `fk_reaction_userID` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -105,6 +101,7 @@ CREATE TABLE `reaction` (
 
 LOCK TABLES `reaction` WRITE;
 /*!40000 ALTER TABLE `reaction` DISABLE KEYS */;
+INSERT INTO `reaction` VALUES (4,54,1,'2021-06-24 09:32:08'),(4,65,0,'2021-06-26 11:13:17'),(19,54,1,'2021-06-25 10:09:46');
 /*!40000 ALTER TABLE `reaction` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -117,9 +114,7 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-06-17 10:34:05
-CREATE DATABASE  IF NOT EXISTS `groupomania` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `groupomania`;
+-- Dump completed on 2021-06-27  9:21:17
 -- MySQL dump 10.13  Distrib 8.0.25, for Win64 (x86_64)
 --
 -- Host: localhost    Database: groupomania
@@ -145,19 +140,20 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
-  `userID` smallint unsigned NOT NULL AUTO_INCREMENT,
-  `email` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `firstName` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `lastName` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `pseudo` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `password` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `bio` varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `avatarUrl` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'http://localhost:3000/images/avatarIcon.jpg',
-  `dateCreation` datetime NOT NULL,
-  PRIMARY KEY (`userID`),
-  UNIQUE KEY `email` (`email`),
-  UNIQUE KEY `password` (`password`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+                        `userID` smallint unsigned NOT NULL AUTO_INCREMENT,
+                        `email` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL,
+                        `firstName` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
+                        `lastName` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
+                        `pseudo` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+                        `password` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+                        `admin` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+                        `bio` varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+                        `avatarUrl` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'http://localhost:3000/images/avatarIcon.jpg',
+                        `dateCreation` datetime NOT NULL,
+                        PRIMARY KEY (`userID`),
+                        UNIQUE KEY `email` (`email`),
+                        UNIQUE KEY `password` (`password`)
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -166,8 +162,8 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (4,'julien@groupomania.com','Julien','Julien','Juju','$2b$10$e68YDxfK9FKSbk3sE.taS.pJ951nNUaCbduHC1ZuvGq4CdpFJARTC','Jeune Dev !','http://localhost:3000/images/avatarIcon.jpg','2021-06-10 16:49:06'),
-                          (7,'julie@groupomania.com','Julie','Julie',NULL,'$2b$10$vx.vZamrS5geHmZQTdHuN.sWMmeJED5xuk5Wo3kwVtQFA4/vM1Z6G',NULL,'http://localhost:3000/images/avatarIcon.jpg','2021-06-14 09:46:02');
+INSERT INTO `user` VALUES (4,'julien@groupomania.com','Julien','Julien','Juju','$2b$10$e68YDxfK9FKSbk3sE.taS.pJ951nNUaCbduHC1ZuvGq4CdpFJARTC','true','Administrateur','http://localhost:3000/images/avatarIcon.jpg','2021-06-10 16:49:06'),
+                          (19,'julie@groupomania.com','Julie','Julie',NULL,'$2b$10$ib.ok0NZoFePnbpB3PIYN.OKUmKTU9t1FgMIwFDWRoki0ukfhxuW6','false',NULL,'http://localhost:3000/images/avatarIcon.jpg','2021-06-17 14:46:42');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -180,4 +176,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-06-17 10:34:05
+-- Dump completed on 2021-06-27  9:21:17

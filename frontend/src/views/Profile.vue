@@ -76,7 +76,7 @@
                             aria-label="Nouveau mot de passe"
                     />
                     <template
-                >Veuillez entrer votre mot de passe pour confirmer la ou les modification</template>
+                >Veuillez entrer votre mot de passe pour confirmer les modifications</template>
                     <div class="input-group">
                         <input
                                 class="form-control text-center"
@@ -205,29 +205,29 @@
             updateProfile() {
                 // Update les autres informations //
                 const formData = new FormData();
-                formData.append("email", data.email);
-                formData.append("pseudo", data.pseudo);
-                formData.append("image", data.image);
-                formData.append("bio", data.bio);
-                formData.append("password", data.password);
-                formData.append("newPassword", data.newPassword);
+                formData.append("email", data.user.email);
+                formData.append("pseudo", data.user.pseudo);
+                formData.append("image", data.user.image);
+                formData.append("bio", data.user.bio);
+                formData.append("password", data.user.password);
+                formData.append("newPassword", data.user.newPassword);
                 let data;
                 if (data.newPassword === "") {
                     data = {
-                        email: data.email,
-                        pseudo: data.pseudo,
-                        bio: data.bio,
-                        password: data.password,
-                        image: data.image,
+                        email: data.user.email,
+                        pseudo: data.user.pseudo,
+                        bio: data.user.bio,
+                        password: data.user.password,
+                        image: data.user.image,
                     };
                 } else {
                     data = {
-                        email: data.email,
-                        pseudo: data.pseudo,
-                        bio: data.bio,
-                        password: data.password,
-                        newPassword: data.newPassword,
-                        image: data.image,
+                        email: data.user.email,
+                        pseudo: data.user.pseudo,
+                        bio: data.user.bio,
+                        password: data.user.password,
+                        newPassword: data.user.newPassword,
+                        image: data.user.image,
                     };
                 }
                 this.$axios

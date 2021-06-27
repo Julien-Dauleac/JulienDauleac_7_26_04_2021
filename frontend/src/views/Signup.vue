@@ -64,6 +64,7 @@
                             .post("user/login", this.$data)
                             .then((data) => {
                             sessionStorage.setItem("token", data.data.token);
+                            sessionStorage.setItem("admin", data.data.admin);
                             this.$axios.defaults.headers.common['Authorization'] = 'Bearer ' + data.data.token;
                             this.$router.push("Home");
                         });
