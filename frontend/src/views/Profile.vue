@@ -10,7 +10,7 @@
             <NavHead />
             <!-- Fin -->
             <!-- Formulaire pour update le profil si c'est notre profil -->
-            <section class="border-bottom" v-if="user.yourProfile === 1">
+            <section class="border-bottom" v-if="user.yourProfile === 1 || user.admin === true">
                 <h2
                         class="h6"
                         data-toggle="collapse"
@@ -30,6 +30,34 @@
                                 v-on:change="updateAvatar($event)"
                         />
                         <label class="custom-file-label" for="image">Choisir un avatar</label>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input
+                                class="form-control"
+                                type="text"
+                                v-model="user.firstName"
+                                name="firstName"
+                                pattern="[a-zA-Z._-]{2,15}"
+                                aria-label="Modifiez prénom"
+                                aria-describedby="firstNameInput"
+                        />
+                        <div class="input-group-append">
+                            <span class="input-group-text" id="firstNameInput">Prénom</span>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input
+                                class="form-control"
+                                type="text"
+                                v-model="user.lastName"
+                                name="lastName"
+                                pattern="[a-zA-Z._-]{2,15}"
+                                aria-label="Modifiez nom"
+                                aria-describedby="lastNameInput"
+                        />
+                        <div class="input-group-append">
+                            <span class="input-group-text" id="lastNameInput">Nom</span>
+                        </div>
                     </div>
                     <div class="input-group mb-3">
                         <input
@@ -162,6 +190,7 @@
         data: () => {
             return {
                 connected: true, // Défini si l'user est connecté //
+                admin: false, // Défini si l'user est admin //
                 messageError: null,
                 alert: {
                     type: "",
@@ -214,6 +243,8 @@
             updateProfile(data) {
                 // Update les autres informations //
                 const email = this.user.email;
+                const firstName = this.user.firstName;
+                const lastName = this.user.lastName;
                 const pseudo = this.user.pseudo;
                 const bio = this.user.bio;
                 const password = document.getElementById("password").value;
@@ -221,6 +252,8 @@
                 if (newPassword === "") {
                     data = {
                         email: email,
+                        firstName: firstName,
+                        lastName: lastName,
                         pseudo: pseudo,
                         bio: bio,
                         password: password,
@@ -228,6 +261,8 @@
                 } else {
                     data = {
                         email: email,
+                        firstName: firstName,
+                        lastName: lastName,
                         pseudo: pseudo,
                         bio: bio,
                         password: password,
@@ -253,7 +288,7 @@
                     .then(() => {
                         sessionStorage.removeItem("token");
                         delete this.$axios.defaults.headers.common["Authorization"];
-                        this.$router.push({ name: "Login" });
+                        this.$router.push("Signup");
                     })
                     .catch((e) => {
                         if (e.response.status === 401) {

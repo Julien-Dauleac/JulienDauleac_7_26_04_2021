@@ -53,11 +53,11 @@ exports.login = (req, res, next) => {
                 }
                 res.status(200).json({
                     token: jwt.sign(
-                        { userID: result[0].userID },
+                        { userID: result[0].userID,
+                                 admin: result[0].admin},
                         process.env.TOKEN,
                         { expiresIn: "24h" }
                     ),
-                    admin: result[0].admin
                 });
             })
             .catch(e => res.status(500).json(e));
@@ -140,6 +140,8 @@ exports.profile = (req, res, next) => {
 exports.modify = (req, res, next) => {
     const userID = res.locals.userID;
     const email = req.body.email;
+    const firstName = req.body.firstName;
+    const lastName = req.body.lastName;
     const pseudo = req.body.pseudo;
     const bio = req.body.bio;
     const password = req.body.password;
@@ -199,8 +201,8 @@ exports.modify = (req, res, next) => {
                     if (newPassword) { // Si un nouveau mots de passe est défini //
                         bcrypt.hash(newPassword, 10)
                             .then(hash => {
-                                sqlChangePassword = "UPDATE User SET email=?, pseudo=?, bio=?, password=? WHERE userID = ?";
-                                values = [email, pseudo, bio, hash, userID];
+                                sqlChangePassword = "UPDATE User SET email=?, firstName=?, lastName=?, pseudo=?, bio=?, password=? WHERE userID = ?";
+                                values = [email, firstName, lastName, pseudo, bio, hash, userID];
                                 mysql.query(sqlChangePassword, values, function (err, result) {
                                     if (err) {
                                         return res.status(500).json(err.message);
@@ -214,8 +216,8 @@ exports.modify = (req, res, next) => {
                             .catch(e => res.status(500).json(e));
 
                     } else { // Si le mots de passe reste le même //
-                        sqlModifyUser = "UPDATE user SET email=?, pseudo=?, bio=? WHERE userID = ?";
-                        values = [email, pseudo, bio, userID];
+                        sqlModifyUser = "UPDATE user SET email=?, firstName=?, lastName=?, pseudo=?, bio=? WHERE userID = ?";
+                        values = [email, firstName, lastName, pseudo, bio, userID];
                         mysql.query(sqlModifyUser, values, function (err, result) {
                             if (err) {
                                 return res.status(500).json(err.message);
