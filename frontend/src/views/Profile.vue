@@ -199,39 +199,43 @@
             },
             updateAvatar(event) {
                 // Update son avatar //
-                this.user.image = event.target.files[0];
-                console.log(event.target.files);
-            },
-            updateProfile() {
-                // Update les autres informations //
+                const image = event.target.files[0];
                 const formData = new FormData();
-                formData.append("email", data.user.email);
-                formData.append("pseudo", data.user.pseudo);
-                formData.append("image", data.user.image);
-                formData.append("bio", data.user.bio);
-                formData.append("password", data.user.password);
-                formData.append("newPassword", data.user.newPassword);
-                let data;
-                if (data.newPassword === "") {
+                formData.append("image", image);
+                this.$axios
+                    .put("user/modify", formData)
+                    .then(() => {
+                        this.getUser();
+                    })
+                    .catch((e) => {
+                        console.log(e);
+                    });
+            },
+            updateProfile(data) {
+                // Update les autres informations //
+                const email = this.user.email;
+                const pseudo = this.user.pseudo;
+                const bio = this.user.bio;
+                const password = document.getElementById("password").value;
+                const newPassword = document.getElementById("newPassword").value;
+                if (newPassword === "") {
                     data = {
-                        email: data.user.email,
-                        pseudo: data.user.pseudo,
-                        bio: data.user.bio,
-                        password: data.user.password,
-                        image: data.user.image,
+                        email: email,
+                        pseudo: pseudo,
+                        bio: bio,
+                        password: password,
                     };
                 } else {
                     data = {
-                        email: data.user.email,
-                        pseudo: data.user.pseudo,
-                        bio: data.user.bio,
-                        password: data.user.password,
-                        newPassword: data.user.newPassword,
-                        image: data.user.image,
+                        email: email,
+                        pseudo: pseudo,
+                        bio: bio,
+                        password: password,
+                        newPassword: newPassword,
                     };
                 }
                 this.$axios
-                    .put("user/modify", formData)
+                    .put("user/modify", data)
                     .then(() => {
                         this.$router.go();
                     })
