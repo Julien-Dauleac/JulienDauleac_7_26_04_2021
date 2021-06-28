@@ -10,7 +10,7 @@
             <NavHead />
             <!-- Fin -->
             <!-- Formulaire pour update le profil si c'est notre profil -->
-            <section class="border-bottom" v-if="user.yourProfile === 1 || user.admin === true">
+            <section class="border-bottom" v-if="user.yourProfile === 1">
                 <h2
                         class="h6"
                         data-toggle="collapse"
