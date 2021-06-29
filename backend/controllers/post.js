@@ -79,8 +79,9 @@ exports.deletePost = (req, res, next) => {
     const postID = req.params.id;
     const userID = res.locals.userID;
 
-    let sqlDeletePost;
     let sqlSelectPost;
+    let sqlDeletePost;
+
     if (res.locals.admin) {
         sqlSelectPost = "SELECT gifUrl FROM post WHERE postID = ?";
     }
@@ -92,7 +93,12 @@ exports.deletePost = (req, res, next) => {
         if (result.length > 0) {
             const filename = result[0].gifUrl.split("/images/")[1];
             fs.unlink(`images/${filename}`, () => { // On supprime le fichier image en amont //
-                sqlDeletePost = "DELETE FROM post WHERE userID = ? AND postID = ?";
+                if (res.locals.admin){
+                    sqlDeletePost = "DELETE FROM post WHERE userID = ?";
+                }
+                else {
+                    sqlDeletePost = "DELETE FROM post WHERE userID = ? AND postID = ?";
+                }
                 mysql.query(sqlDeletePost, [userID, postID], function (err, result) {
                     if (err) {
                         return res.status(500).json(err.message);
@@ -137,7 +143,12 @@ exports.deleteComment = (req, res, next) => {
 
     let sqlDeleteComment;
 
-    sqlDeleteComment = "DELETE FROM post WHERE userID = ? AND postID = ?";
+    if (res.locals.admin){
+        sqlDeleteComment = "DELETE FROM post WHERE postID = ?";
+    }
+    else {
+        sqlDeleteComment = "DELETE FROM post WHERE userID = ? AND postID = ?";
+    }
     mysql.query(sqlDeleteComment, [userID, postID], function (err, result) {
         if (err) {
             return res.status(500).json(err.message);

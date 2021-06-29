@@ -27,7 +27,7 @@
             >
                 <!-- Fin -->
                 <!-- Bouton suppression du post -->
-                <template v-slot:postDelete v-if="userIsAdmin === true || posts[indexLastPost].yourPost > 0">
+                <template v-slot:postDelete v-if="admin === true || posts[indexLastPost].yourPost > 0">
                     <i
                             class="fas fa-times"
                             aria-hidden="true"
@@ -75,19 +75,19 @@
                         >Publier</button>
                     </CreateComment>
                     <!-- Fin -->
-                    <!-- Alert pour la création et la suppression des posts -->
-                    <Alert
-                            v-if="alert.active && alert.activeComment && (commentID === posts[indexLastPost].postID)"
-                            :alertType="alert.type"
-                            :alertMessage="alert.message"
-                    />
-                    <!-- Fin -->
                 </template>
                 <!-- Footer post -->
                 <template v-slot:postDate>{{ posts[indexLastPost].dateCreation }}</template>
                 <template v-slot:postUp>{{ posts[indexLastPost].countUp }}</template>
                 <template v-slot:postDown>{{ posts[indexLastPost].countDown }}</template>
             </BlockPost>
+            <!-- Fin -->
+            <!-- Alert pour la création et la suppression des posts -->
+            <Alert
+                    v-if="alert.active && alert.activeComment && (commentID === posts[indexLastPost].postID)"
+                    :alertType="alert.type"
+                    :alertMessage="alert.message"
+            />
             <!-- Fin -->
             <!-- Commentaire -->
             <Comment
@@ -101,7 +101,7 @@
             >
                 <!-- Fin -->
                 <!-- Bouton de suppression commentaire -->
-                <template v-slot:commentDelete v-if="userIsAdmin === true || comment.yourPost > 0">
+                <template v-slot:commentDelete v-if="admin === true || comment.yourPost > 0">
                     <i
                             class="fas fa-times"
                             aria-hidden="true"
@@ -154,6 +154,7 @@
         data: () => {
             return {
                 connected: true, // Défini si l'user est connecté //
+                admin: false, // Défini si l'user est admin //
                 alert: {
                     active: false, // Défini si l'alerte doit être montré //
                     activeComment: false, // Défini si l'alerte concerne un commentaire //
@@ -164,7 +165,6 @@
                 body: "", // Stock le corps du commentaire //
                 commentInputShow: false, // Défini si l'input de la création de commentaire doit être montré //
                 commentID: "", // Stock l'id du post pour lequel le commentaire sera envoyé //
-                userIsAdmin: false,
             };
         },
         computed: {

@@ -11,11 +11,11 @@
             <!-- Création des posts -->
             <CreatePost v-on:post-sent="post" />
             <!-- Fin -->
-            <!-- Alert pour la création, la modification et la suppression des posts -->
+            <!-- Alert pour la création et la suppression des posts -->
             <Alert
+                    v-if="alert.active && !alert.activeComment"
                     :alertMessage="alert.message"
                     :alertType="alert.type"
-                    v-if="alert.active && !alert.activeComment"
             />
             <!-- Fin -->
             <!-- Post -->
@@ -32,7 +32,7 @@
             >
                 <!-- Fin -->
                 <!-- Bouton de suppression du post -->
-                <template v-if="userIsAdmin === true || post.yourPost > 0" v-slot:postDelete>
+                <template v-if="admin === true || post.yourPost > 0" v-slot:postDelete>
                     <i
                             aria-hidden="true"
                             class="fas fa-times"
@@ -77,9 +77,9 @@
                     <!-- Fin -->
                     <!-- Alert pour la création d'un commentaire -->
                     <Alert
+                            v-if="alert.active && alert.activeComment && (commentID === post.postID)"
                             :alertMessage="alert.message"
                             :alertType="alert.type"
-                            v-if="alert.active && alert.activeComment && (commentID === post.postID)"
                     />
                     <!-- Fin -->
                 </template>
@@ -112,6 +112,7 @@
         data: () => {
             return {
                 connected: true, // Défini si l'user est connecté //
+                admin: false, // Défini si l'user est admin //
                 alert: {
                     active: false, // Défini si l'alerte doit être montré //
                     activeComment: false, // Défini si l'alerte concerne un commentaire //
@@ -122,7 +123,6 @@
                 body: "", // Stock le corps du commentaire //
                 commentInputShow: false, // Défini si l'input de la création de commentaire doit être montré //
                 commentID: "", // Stock l'id du post pour lequel le commentaire sera envoyé //
-                userIsAdmin: false,
             };
         },
         methods: {
