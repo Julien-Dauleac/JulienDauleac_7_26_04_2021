@@ -94,12 +94,12 @@ exports.deletePost = (req, res, next) => {
             const filename = result[0].gifUrl.split("/images/")[1];
             fs.unlink(`images/${filename}`, () => { // On supprime le fichier image en amont //
                 if (res.locals.admin){
-                    sqlDeletePost = "DELETE FROM post WHERE userID = ?";
+                    sqlDeletePost = "DELETE FROM post WHERE postID = ?";
                 }
                 else {
-                    sqlDeletePost = "DELETE FROM post WHERE userID = ? AND postID = ?";
+                    sqlDeletePost = "DELETE FROM post WHERE postID = ? AND userID = ?";
                 }
-                mysql.query(sqlDeletePost, [userID, postID], function (err, result) {
+                mysql.query(sqlDeletePost, [postID, userID], function (err, result) {
                     if (err) {
                         return res.status(500).json(err.message);
                     }

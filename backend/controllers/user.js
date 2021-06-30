@@ -53,11 +53,11 @@ exports.login = (req, res, next) => {
                 }
                 res.status(200).json({
                     token: jwt.sign(
-                        { userID: result[0].userID,
-                                 admin: result[0].admin},
+                        { userID: result[0].userID },
                         process.env.TOKEN,
                         { expiresIn: "24h" }
                     ),
+                    admin: result[0].admin
                 });
             })
             .catch(e => res.status(500).json(e));

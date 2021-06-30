@@ -155,7 +155,7 @@
                         role="button"
                         aria-expanded="false"
                         aria-controls="collapseDeleteProfile"
-                >Supprimer votre compte</h2>
+                >Supprimer le compte</h2>
                 <form class="collapse row" id="collapseDeleteProfile">
                     <div class="col-md-4 offset-md-4 input-group">
                         <input
@@ -190,7 +190,6 @@
         data: () => {
             return {
                 connected: true, // Défini si l'user est connecté //
-                admin: false, // Défini si l'user est admin //
                 messageError: null,
                 alert: {
                     type: "",
