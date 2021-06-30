@@ -8,7 +8,7 @@ module.exports = (req, res, next) => { // Vérifie si le token est bon //
         const token = req.headers.authorization.split(" ")[1]; // Récupère le token dans l'entête //
         const decodedToken = jwt.verify(token, process.env.TOKEN); // On vérifie le token avec la clé pour le lire //
         res.locals.userID = decodedToken.userID; // Le token devient un objet JS qu'on place dans une constante, et on y récupère l'user ID pour comparaison //
-        res.locals.admin = false; // On vérifie si l'utilisateur est admin //
+        res.locals.admin = decodedToken.admin; // On vérifie si l'utilisateur est admin //
         next();
     } catch{ // Problème d'autentification si erreur dans les instructions on renvoie le statut 401 non autorisé //
         res.status(401).json({message: 'Requête non authentifiée !'});
