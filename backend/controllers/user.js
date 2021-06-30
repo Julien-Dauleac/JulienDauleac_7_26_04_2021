@@ -83,17 +83,17 @@ exports.delete = (req, res, next) => {
             return res.status(401).json({ error: "Utilisateur non trouvé !" });
         }
 
-        const filename = result[0].avatarUrl.split("/images/")[1];
-        if (filename !== "avatarIcon.jpg") {
-            fs.unlink(`images/${filename}`, () => { // On supprime le fichier image en amont //
-            });
-        }
         passwordHashed = result[0].password;
 
         bcrypt.compare(password, passwordHashed)
             .then(valid => {
                 if (!valid) {
                     return res.status(401).json({ error: "Mot de passe incorrect !" });
+                }
+                const filename = result[0].avatarUrl.split("/images/")[1];
+                if (filename !== "avatarIcon.jpg") {
+                    fs.unlink(`images/${filename}`, () => { // On supprime le fichier image en amont //
+                    });
                 }
                 sqlDeleteUser = "DELETE FROM user WHERE userID = ?";
                 mysql.query(sqlDeleteUser, [userID], function (err, result) {
