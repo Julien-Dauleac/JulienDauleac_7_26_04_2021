@@ -147,9 +147,9 @@ exports.deleteComment = (req, res, next) => {
         sqlDeleteComment = "DELETE FROM post WHERE postID = ?";
     }
     else {
-        sqlDeleteComment = "DELETE FROM post WHERE userID = ? AND postID = ?";
+        sqlDeleteComment = "DELETE FROM post WHERE postID = ? AND userID = ?";
     }
-    mysql.query(sqlDeleteComment, [userID, postID], function (err, result) {
+    mysql.query(sqlDeleteComment, [postID, userID], function (err, result) {
         if (err) {
             return res.status(500).json(err.message);
         }
