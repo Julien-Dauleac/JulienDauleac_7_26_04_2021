@@ -154,7 +154,7 @@
         data: () => {
             return {
                 connected: true, // Défini si l'user est connecté //
-                admin: false, // Défini si l'user est admin //
+                admin: true, // Défini si l'user est admin //
                 alert: {
                     active: false, // Défini si l'alerte doit être montré //
                     activeComment: false, // Défini si l'alerte concerne un commentaire //
