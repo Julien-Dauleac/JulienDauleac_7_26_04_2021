@@ -35,7 +35,7 @@ CREATE TABLE `post` (
                         KEY `fk_post_userID` (`userID`),
                         CONSTRAINT `fk_commentID` FOREIGN KEY (`postIDComment`) REFERENCES `post` (`postID`) ON DELETE CASCADE,
                         CONSTRAINT `fk_post_userID` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=171 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=176 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,7 +44,7 @@ CREATE TABLE `post` (
 
 LOCK TABLES `post` WRITE;
 /*!40000 ALTER TABLE `post` DISABLE KEYS */;
-INSERT INTO `post` VALUES (166,42,'Coucou :','http://localhost:3000/images/Mayonnaise_de_Dijon.jpg1625059953254.jpeg',NULL,NULL,'2021-06-30 15:32:33'),(168,44,'Bonjour','http://localhost:3000/images/Ketchup_Heinz.jpg1625134769329.jpeg',NULL,NULL,'2021-07-01 12:19:29'),(169,44,NULL,NULL,166,'Salut !','2021-07-01 12:19:34'),(170,42,NULL,NULL,168,'Coucou !','2021-07-01 12:19:47');
+INSERT INTO `post` VALUES (166,42,'Coucou :','http://localhost:3000/images/Mayonnaise_de_Dijon.jpg1625059953254.jpeg',NULL,NULL,'2021-06-30 15:32:33'),(172,56,'Bonjour','http://localhost:3000/images/Ketchup_Heinz.jpg1625136645998.jpeg',NULL,NULL,'2021-07-01 12:50:46'),(173,56,NULL,NULL,166,'Salut !','2021-07-01 12:50:52'),(174,42,NULL,NULL,172,'Coucou !','2021-07-01 12:51:10');
 /*!40000 ALTER TABLE `post` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -57,7 +57,7 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-07-01 12:28:33
+-- Dump completed on 2021-07-01 14:38:55
 -- MySQL dump 10.13  Distrib 8.0.25, for Win64 (x86_64)
 --
 -- Host: localhost    Database: groupomania
@@ -100,6 +100,7 @@ CREATE TABLE `reaction` (
 
 LOCK TABLES `reaction` WRITE;
 /*!40000 ALTER TABLE `reaction` DISABLE KEYS */;
+INSERT INTO `reaction` VALUES (42,166,-1,'2021-07-01 14:37:27'),(42,172,1,'2021-07-01 12:51:16'),(42,173,1,'2021-07-01 12:51:20'),(42,174,1,'2021-07-01 14:37:35'),(56,166,-1,'2021-07-01 12:51:31'),(56,172,1,'2021-07-01 14:37:11'),(56,173,1,'2021-07-01 14:37:16'),(56,174,1,'2021-07-01 12:51:29');
 /*!40000 ALTER TABLE `reaction` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -112,7 +113,6 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-07-01 12:28:33
 -- MySQL dump 10.13  Distrib 8.0.25, for Win64 (x86_64)
 --
 -- Host: localhost    Database: groupomania
@@ -151,7 +151,7 @@ CREATE TABLE `user` (
                         PRIMARY KEY (`userID`),
                         UNIQUE KEY `email` (`email`),
                         UNIQUE KEY `password` (`password`)
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -160,7 +160,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (42,'julie@groupomania.com','Julie','Julie',NULL,'$2b$10$XLUDzO3s7vTqSBgUpub5Vefvx29H5ngEj8PMyfXE8JB7VhpRhfOlK',0,NULL,'http://localhost:3000/images/avatarIcon.jpg','2021-06-29 15:48:56'),(44,'julien@groupomania.com','Julien','Julien','Juju','$2b$10$TO5SMZkt9R3wu1y79yZrY.kLipnXsuZf/LiZ8jWqOKfJ4LehElM2O',1,'Administrateur','http://localhost:3000/images/avatar-1577909_960_720_1625036900287.png','2021-06-30 09:04:15'),(54,'ju@groupomania.com','Ju','Ju',NULL,'$2b$10$V1bIYOOoRDL9ogpuVxLG1eiKoDHG/ttOmLsPMfVOI4ZTvgRxojoD2',NULL,NULL,'http://localhost:3000/images/avatarIcon.jpg','2021-07-01 12:24:39');
+INSERT INTO `user` VALUES (42,'julie@groupomania.com','Julie','Sonet','Juju','$2b$10$XLUDzO3s7vTqSBgUpub5Vefvx29H5ngEj8PMyfXE8JB7VhpRhfOlK',0,'Jeune dev !','http://localhost:3000/images/avatarIcon.jpg','2021-06-29 15:48:56'),(56,'julien@groupomania.com','Julien','Dauleac','','$2b$10$4iJw4H/xF8ahkAkZ8uq.AuqL5QCYaZve8Lpu4AiwO9Jf.ti9LVdOi',1,'Administrateur','http://localhost:3000/images/avatar-1577909_960_720_1625136621402.png','2021-07-01 12:49:55');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -173,4 +173,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-07-01 12:28:33
+-- Dump completed on 2021-07-01 14:38:55
