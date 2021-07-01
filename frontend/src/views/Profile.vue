@@ -156,6 +156,8 @@
                         aria-expanded="false"
                         aria-controls="collapseDeleteProfile"
                 >Supprimer le compte</h2>
+                <template
+                >Veuillez vous déconnecter après la suppression du compte</template>
                 <form class="collapse row" id="collapseDeleteProfile">
                     <div class="col-md-4 offset-md-4 input-group">
                         <input
