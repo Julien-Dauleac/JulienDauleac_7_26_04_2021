@@ -27,7 +27,7 @@
             >
                 <!-- Fin -->
                 <!-- Bouton suppression du post -->
-                <template v-slot:postDelete v-if="posts[indexLastPost].admin === 0 || posts[indexLastPost].yourPost > 0">
+                <template v-slot:postDelete v-if="posts[indexLastPost].admin !== 1 || posts[indexLastPost].yourPost > 0">
                     <i
                             class="fas fa-times"
                             aria-hidden="true"
@@ -101,7 +101,7 @@
             >
                 <!-- Fin -->
                 <!-- Bouton de suppression commentaire -->
-                <template v-slot:commentDelete v-if="comment.admin === 0 || comment.yourPost > 0">
+                <template v-slot:commentDelete v-if="comment.admin !== 1 || comment.yourPost > 0">
                     <i
                             class="fas fa-times"
                             aria-hidden="true"

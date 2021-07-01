@@ -64,6 +64,7 @@ exports.login = (req, res, next) => {
             .catch(e => res.status(500).json(e));
     });
 };
+
 // Pour supprimer un utilisateur //
 exports.delete = (req, res, next) => {
     const password = req.body.password;

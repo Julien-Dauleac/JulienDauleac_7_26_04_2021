@@ -32,7 +32,7 @@
             >
                 <!-- Fin -->
                 <!-- Bouton de suppression du post -->
-                <template v-if="post.admin === 0 || post.yourPost > 0" v-slot:postDelete>
+                <template v-if="post.admin !== 1 || post.yourPost > 0" v-slot:postDelete>
                     <i
                             aria-hidden="true"
                             class="fas fa-times"
