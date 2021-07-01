@@ -12,7 +12,7 @@
                 id="email"
                 required
                 pattern="[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+.[a-zA-Z.]{2,15}"
-                maxlength="60"
+                maxlength="30"
                 aria-label="Entrez votre email"
                 v-model="email"
                 v-on:input="sendData"

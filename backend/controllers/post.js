@@ -9,7 +9,7 @@ exports.getAllPosts = (req, res, next) => {
     let sqlGetPosts;
 
     sqlGetPosts = `SELECT post.postID, post.userID, legend, gifUrl, DATE_FORMAT(post.dateCreation, 'le %e %M %Y à %kh%i') 
-    AS dateCreation, firstName, lastName, pseudo, avatarUrl,
+    AS dateCreation, firstName, lastName, pseudo, admin, avatarUrl,
     COUNT(CASE WHEN reaction.reaction = 1 then 1 else null end) AS countUp,
     COUNT(CASE WHEN reaction.reaction = -1 then 1 else null end) AS countDown,
     SUM(CASE WHEN reaction.userID = ? AND reaction.reaction = 1 then 1 WHEN reaction.userID = ? AND reaction.reaction = -1 then -1 else 0 end) AS yourReaction,
@@ -35,7 +35,7 @@ exports.getOnePost = (req, res, next) => {
     let sqlGetPost;
 
     sqlGetPost = `SELECT post.postID, post.userID, legend, body, gifUrl, DATE_FORMAT(post.dateCreation, 'le %e %M %Y à %kh%i') 
-    AS dateCreation, firstName, lastName, pseudo, avatarUrl,
+    AS dateCreation, firstName, lastName, pseudo, admin, avatarUrl,
     COUNT(CASE WHEN reaction.reaction = 1 then 1 else null end) AS countUp,
     COUNT(CASE WHEN reaction.reaction = -1 then 1 else null end) AS countDown,
     SUM(CASE WHEN reaction.userID = ? AND reaction.reaction = 1 then 1 WHEN reaction.userID = ? AND reaction.reaction = -1 then -1 else 0 end) AS yourReaction,
