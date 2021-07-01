@@ -82,7 +82,7 @@
                 <template v-slot:postDown>{{ posts[indexLastPost].countDown }}</template>
             </BlockPost>
             <!-- Fin -->
-            <!-- Alert pour la création et la suppression des posts -->
+            <!-- Alert pour la création et la suppression des commentaires -->
             <Alert
                     v-if="alert.active && alert.activeComment && (commentID === posts[indexLastPost].postID)"
                     :alertType="alert.type"

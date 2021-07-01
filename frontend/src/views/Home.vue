@@ -32,7 +32,7 @@
             >
                 <!-- Fin -->
                 <!-- Bouton de suppression du post -->
-                <template v-if="post.admin !== 1 || post.yourPost > 0" v-slot:postDelete>
+                <template v-if=" post.admin !== 1 || post.yourPost > 0" v-slot:postDelete>
                     <i
                             aria-hidden="true"
                             class="fas fa-times"
@@ -62,6 +62,13 @@
                 <!-- Corps du post -->
                 <template v-slot:postLegend>{{ post.legend }}</template>
                 <!-- Fin -->
+                <!-- Alert pour la création d'un commentaire -->
+                <Alert
+                        v-if="alert.active && alert.activeComment && (commentID === post.postID)"
+                        :alertMessage="alert.message"
+                        :alertType="alert.type"
+                />
+                <!-- Fin -->
                 <template v-slot:createComment>
                     <!-- Création d'un commentaire -->
                     <CreateComment
@@ -74,13 +81,6 @@
                                 v-on:click.prevent="postComment(post.postID)"
                         >Publier</button>
                     </CreateComment>
-                    <!-- Fin -->
-                    <!-- Alert pour la création d'un commentaire -->
-                    <Alert
-                            v-if="alert.active && alert.activeComment && (commentID === post.postID)"
-                            :alertMessage="alert.message"
-                            :alertType="alert.type"
-                    />
                     <!-- Fin -->
                 </template>
                 <!-- Footer post -->
