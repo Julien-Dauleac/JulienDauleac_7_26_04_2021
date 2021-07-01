@@ -89,7 +89,6 @@ exports.deletePost = (req, res, next) => {
         sqlSelectPost = "SELECT gifUrl FROM post WHERE postID = ? AND userID = ?";
     }
     mysql.query(sqlSelectPost, [postID, userID], function (err, result) {
-        console.log(result);
         if (result.length > 0) {
             const filename = result[0].gifUrl.split("/images/")[1];
             fs.unlink(`images/${filename}`, () => { // On supprime le fichier image en amont //

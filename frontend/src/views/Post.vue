@@ -27,7 +27,7 @@
             >
                 <!-- Fin -->
                 <!-- Bouton suppression du post -->
-                <template v-slot:postDelete v-if="posts[indexLastPost].admin !== 1 || posts[indexLastPost].yourPost > 0">
+                <template v-slot:postDelete v-if="admin === 1 || posts[indexLastPost].yourPost > 0">
                     <i
                             class="fas fa-times"
                             aria-hidden="true"
@@ -101,7 +101,7 @@
             >
                 <!-- Fin -->
                 <!-- Bouton de suppression commentaire -->
-                <template v-slot:commentDelete v-if="comment.admin !== 1 || comment.yourPost > 0">
+                <template v-slot:commentDelete v-if="admin === 1 || comment.yourPost > 0">
                     <i
                             class="fas fa-times"
                             aria-hidden="true"
@@ -154,6 +154,7 @@
         data: () => {
             return {
                 connected: true, // Défini si l'user est connecté //
+                admin: 0,
                 alert: {
                     active: false, // Défini si l'alerte doit être montré //
                     activeComment: false, // Défini si l'alerte concerne un commentaire //

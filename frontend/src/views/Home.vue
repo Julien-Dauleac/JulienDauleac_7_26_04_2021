@@ -32,7 +32,7 @@
             >
                 <!-- Fin -->
                 <!-- Bouton de suppression du post -->
-                <template v-if=" post.admin !== 1 || post.yourPost > 0" v-slot:postDelete>
+                <template v-if="admin === 1 || post.yourPost > 0" v-slot:postDelete>
                     <i
                             aria-hidden="true"
                             class="fas fa-times"
@@ -112,6 +112,7 @@
         data: () => {
             return {
                 connected: true, // Défini si l'user est connecté //
+                admin: 0,
                 alert: {
                     active: false, // Défini si l'alerte doit être montré //
                     activeComment: false, // Défini si l'alerte concerne un commentaire //
