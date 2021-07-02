@@ -112,7 +112,7 @@
         data: () => {
             return {
                 connected: true, // Défini si l'user est connecté //
-                admin: 0,
+                admin: 0, // Défini si l'user est admin //
                 alert: {
                     active: false, // Défini si l'alerte doit être montré //
                     activeComment: false, // Défini si l'alerte concerne un commentaire //
@@ -173,20 +173,23 @@
                     .catch((e) => console.log(e));
             },
             deletePost(postID) {
-                // Supprime un post si c'est le notre //
-                this.$axios
-                    .delete("post/" + postID)
-                    .then(() => {
-                        const indexPost = this.$data.posts
-                            .map((e) => {
-                                return e.postID;
-                            })
-                            .indexOf(parseInt(postID));
-                        this.$data.posts.splice(indexPost, 1);
+                let res = confirm("Êtes-vous sûr de vouloir supprimer le post ?");
+                if(res){
+                    // Supprime un post si c'est le notre //
+                    this.$axios
+                        .delete("post/" + postID)
+                        .then(() => {
+                            const indexPost = this.$data.posts
+                                .map((e) => {
+                                    return e.postID;
+                                })
+                                .indexOf(parseInt(postID));
+                            this.$data.posts.splice(indexPost, 1);
 
-                        this.alertActive("alert-warning", "Post supprimé !");
-                    })
-                    .catch((e) => console.log(e));
+                            this.alertActive("alert-warning", "Post supprimé !");
+                        })
+                        .catch((e) => console.log(e));
+                }
             },
             sendReaction(postID, reaction) {
                 // Envois les réactions //

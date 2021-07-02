@@ -212,22 +212,25 @@
                     });
             },
             deletePost(postID) {
-                // Supprime un post si c'est le notre //
-                this.$axios
-                    .delete("post/" + postID)
-                    .then(() => {
-                        if (postID === this.$route.params.id) {
-                            this.$router.push({ name: "Home"});
-                        }
-                        const indexPost = this.$data.posts
-                            .map((e) => {
-                                return e.postID;
-                            })
-                            .indexOf(parseInt(postID));
-                        this.$data.posts.splice(indexPost, 1);
-                        this.alertActive("alert-warning", "Commentaire supprimé !");
-                    })
-                    .catch((e) => console.log(e));
+                let res = confirm("Êtes-vous sûr de vouloir supprimer le post ?");
+                if(res) {
+                    // Supprime un post si c'est le notre //
+                    this.$axios
+                        .delete("post/" + postID)
+                        .then(() => {
+                            if (postID === this.$route.params.id) {
+                                this.$router.push({name: "Home"});
+                            }
+                            const indexPost = this.$data.posts
+                                .map((e) => {
+                                    return e.postID;
+                                })
+                                .indexOf(parseInt(postID));
+                            this.$data.posts.splice(indexPost, 1);
+                            this.alertActive("alert-warning", "Commentaire supprimé !");
+                        })
+                        .catch((e) => console.log(e));
+                }
             },
             sendReaction(postID, reaction) {
                 // Envois les réactions //
@@ -271,23 +274,26 @@
                 }
             },
             deleteComment(postID) {
-                // Supprime un commentaire si c'est le notre //
-                this.$axios
-                    .delete(`post/${postID}/comment`)
-                    .then(() => {
-                        if (postID === this.$route.params.id) {
-                            this.$router.push({ name: "Home"});
-                        }
-                        const indexPost = this.$data.posts
-                            .map((e) => {
-                                return e.postID;
-                            })
-                            .indexOf(parseInt(postID));
-                        this.$data.posts.splice(indexPost, 1);
-                        this.alertActive("alert-warning", "Commentaire supprimé !");
-                    })
-                    .catch((e) => console.log(e));
-            },
+                let res = confirm("Êtes-vous sûr de vouloir supprimer le commentaire ?");
+                if (res) {
+                    // Supprime un commentaire si c'est le notre //
+                    this.$axios
+                        .delete(`post/${postID}/comment`)
+                        .then(() => {
+                            if (postID === this.$route.params.id) {
+                                this.$router.push({name: "Home"});
+                            }
+                            const indexPost = this.$data.posts
+                                .map((e) => {
+                                    return e.postID;
+                                })
+                                .indexOf(parseInt(postID));
+                            this.$data.posts.splice(indexPost, 1);
+                            this.alertActive("alert-warning", "Commentaire supprimé !");
+                        })
+                        .catch((e) => console.log(e));
+                }
+            }
         },
         mounted() {
             // Récupère le post et ses commentaires et défini le titre //
