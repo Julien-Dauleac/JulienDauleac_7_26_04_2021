@@ -4,6 +4,7 @@ import App from './App.vue';
 import router from './router';
 
 // Import Axios et configuration //
+// Sert à utiliser et afficher les données provenant d’une API basé sur les promesses //
 import axios from "axios";
 axios.defaults.baseURL = 'http://localhost:3000/api/';
 const token = sessionStorage.getItem('token');
