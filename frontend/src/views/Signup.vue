@@ -41,6 +41,7 @@
                 password: "",
                 firstName: "",
                 lastName: "",
+                admin:"",
                 message: null, // Message d'erreur //
             };
         },
@@ -63,8 +64,8 @@
                         this.$axios
                             .post("user/login", this.$data)
                             .then((data) => {
-                            sessionStorage.setItem("token", data.data.token);
-                            sessionStorage.setItem("admin", data.data.admin);
+                                localStorage.setItem("token", data.data.token);
+                                localStorage.setItem("admin", data.data.admin);
                             this.$axios.defaults.headers.common['Authorization'] = 'Bearer ' + data.data.token;
                             this.$router.push("Home");
                         });
@@ -73,7 +74,7 @@
                         if (e.response.status === 500) {
                             this.message = "Erreur serveur";
                         }
-                        sessionStorage.removeItem("token");
+                        localStorage.removeItem("token");
                     });
             },
         },

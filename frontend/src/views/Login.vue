@@ -29,6 +29,7 @@
             return {
                 email: "",
                 password: "",
+                admin:"",
                 message: null, // Message d'erreur //
             };
         },
@@ -37,14 +38,15 @@
                 // Stock les infos de connexion //
                 this.email = data.email;
                 this.password = data.password;
+                this.admin = data.admin;
             },
             login() {
                 // Connecte l'utilisateur //
                 this.$axios
                     .post("user/login", this.$data)
                     .then((data) => {
-                        sessionStorage.setItem("token", data.data.token);
-                        sessionStorage.setItem("admin", data.data.admin);
+                        localStorage.setItem("token", data.data.token);
+                        localStorage.setItem("admin", data.data.admin);
                         this.$axios.defaults.headers.common['Authorization'] = 'Bearer ' + data.data.token;
                         this.$router.push("Home");
                     })
@@ -55,13 +57,13 @@
                         if (e.response.status === 500) {
                             this.message = "Erreur serveur";
                         }
-                        sessionStorage.removeItem("token");
+                        localStorage.removeItem("token");
                     });
             },
         },
         mounted() {
             // Supprime le token pour la déconnexion et défini le titre //
-            sessionStorage.removeItem("token");
+            localStorage.clear();
             delete this.$axios.defaults.headers.common["Authorization"];
             document.title = "Se connecter | Groupomania";
         },
