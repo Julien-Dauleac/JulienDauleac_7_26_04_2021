@@ -29,7 +29,6 @@
             return {
                 email: "",
                 password: "",
-                admin:"",
                 message: null, // Message d'erreur //
             };
         },
@@ -38,7 +37,7 @@
                 // Stock les infos de connexion //
                 this.email = data.email;
                 this.password = data.password;
-                this.admin = data.admin;
+                this.admin = data.data.admin;
             },
             login() {
                 // Connecte l'utilisateur //

@@ -41,7 +41,6 @@
                 password: "",
                 firstName: "",
                 lastName: "",
-                admin:"",
                 message: null, // Message d'erreur //
             };
         },
@@ -74,7 +73,7 @@
                         if (e.response.status === 500) {
                             this.message = "Erreur serveur";
                         }
-                        localStorage.removeItem("token");
+                        localStorage.clear();
                     });
             },
         },

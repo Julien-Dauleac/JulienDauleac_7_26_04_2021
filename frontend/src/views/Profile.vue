@@ -287,7 +287,7 @@
                 this.$axios
                     .delete("user/delete", { data: { password: password } })
                     .then(() => {
-                        localStorage.removeItem("token");
+                        localStorage.clear();
                         delete this.$axios.defaults.headers.common["Authorization"];
                         this.$router.push("Signup");
                     })

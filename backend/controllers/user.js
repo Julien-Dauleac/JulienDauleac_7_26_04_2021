@@ -29,7 +29,6 @@ exports.signup = (req, res, next) => {
         .catch(e => res.status(500).json(e));
 };
 
-
 // Login avec vérification de l'email unique //
 exports.login = (req, res, next) => {
     const email = req.body.email;
@@ -55,12 +54,11 @@ exports.login = (req, res, next) => {
                 res.status(200).json({
                     token: jwt.sign(
                         { userID: result[0].userID,
-                            email: result[0].email,
-                            password: result[0].password,
                             admin: result[0].admin},
                         process.env.TOKEN,
                         { expiresIn: "24h" }
                     ),
+                    admin: result[0].admin
                 });
             })
             .catch(e => res.status(500).json(e));
